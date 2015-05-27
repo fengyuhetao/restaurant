@@ -26,23 +26,7 @@
         <strong>Just a quick note:</strong> Hope you like the theme!
     </div>
 -->
-	<div class="block">
-		<div class="block-heading">
-            <span class="block-icon pull-right">
-                <a href="#" class="demo-cancel-click" rel="tooltip" title="点击刷新"><i class="icon-refresh"></i></a>
-            </span>
-            <a href="#site-stats" data-toggle="collapse">座位情况</a>
-
-        </div>
-		<div id="site-stats" class="block-body gallery">
-			<img class="img-polaroid" src="images/zhuozi.gif">
-			<img class="img-polaroid" src="images/140x140.gif">
-			<img class="img-polaroid" src="images/140x140.gif">
-			<img class="img-polaroid" src="images/140x140.gif">
-			<img class="img-polaroid" src="images/140x140.gif">
-			<div class="clearfix"></div>
-		</div>
-	</div>
+	
 
     <div class="block">
     	<div class="block-heading">
@@ -56,38 +40,35 @@
         <div id="page-stats" class="block-body collapse in">
 
             <div class="stat-widget-container">
-                <div class="stat-widget">
-                    <img class="img-polaroid" src="images/zhuozi.gif">
+              <?php
+                while($arraySeat=mysql_fetch_array($selectSeat))
+                {
+               ?>
+                <div class="stat-widget gallery">
+                  <?php
+                      if($arraySeat['seatState']==0)
+                      {
+                  ?>
+                        <img class="img-polaroid" src="images/zhuozi.gif">
+                      <?php
+                      }
+                      else
+                      {
+                      ?>
+                      <img class="img-polaroid" src="images/zhuoziNo.jpg">
+                      <?php
+                      }
+                      ?>
+                      <div class="stat-button">
+                        <p class="title">桌号:<?php echo $arraySeat['number'];?></p>
+                        <p class="detail">容量:<?php echo $arraySeat['capacity'];?>人</p>
+                      </div>
                 </div>
+                <?php
+              }
+              ?>
                 
-                 <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">一号桌</p>
-                        <p class="detail">Accounts</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">3,299</p>
-                        <p class="detail">Subscribers</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">$1,500</p>
-                        <p class="detail">Pending</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">$12,675</p>
-                        <p class="detail">Completed</p>
-                    </div>
-                </div>
-
+               
             </div>
         </div>
     </div>
@@ -100,109 +81,83 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>菜名</th>
+                  <th>类型</th>
+                  <th>单价</th>
                 </tr>
               </thead>
+
+              <?php
+                $i=0;
+                while($arrayMenu=mysql_fetch_array($selectMenu))
+                {
+                    if($i==5)
+                        {break;}
+                    $i++;
+
+                    if($arrayMenu['state']==0)
+                      {continue;}
+               ?>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Tompson</td>
-                  <td>the_mark7</td>
-                </tr>
-                <tr>
-                  <td>Ashley</td>
-                  <td>Jacobs</td>
-                  <td>ash11927</td>
-                </tr>
-                <tr>
-                  <td>Audrey</td>
-                  <td>Ann</td>
-                  <td>audann84</td>
-                </tr>
-                <tr>
-                  <td>John</td>
-                  <td>Robinson</td>
-                  <td>jr5527</td>
-                </tr>
-                <tr>
-                  <td>Aaron</td>
-                  <td>Butler</td>
-                  <td>aaron_butler</td>
-                </tr>
-                <tr>
-                  <td>Chris</td>
-                  <td>Albert</td>
-                  <td>cab79</td>
+                  <td><?php echo $arrayMenu['foodName'];?></td>
+                  <td><?php echo $arrayMenu['foodType'];?></td>
+                  <td><?php echo $arrayMenu['price'];?></td>
                 </tr>
               </tbody>
+              <?php
+            }
+            ?>
             </table>
-            <p><a href="users.html">More...</a></p>
+            <p><a href="menu.php">更多...</a></p>
         </div>
     </div>
     <div class="block span6">
         <div class="block-heading">
             <span class="block-icon pull-right">
-                <a href="#" class="demo-cancel-click" rel="tooltip" title="点击刷新"><i class="icon-refresh"></i></a>
+                <a href="#" class="demo-cancel-click" rel="tooltip" onclick="refreshClick();" title="点击刷新"><i class="icon-refresh"></i></a>
             </span>
 
             <a href="#widget2container" data-toggle="collapse">当前账单</a>
         </div>
         <div id="widget2container" class="block-body collapse in">
             <table class="table list">
+              <?php
+                $i=0;
+                while($arrayBill=mysql_fetch_array($selectBill))
+                {
+                    if($i==5)
+                        {break;}
+                    $i++;
+               ?>
               <tbody>
                   <tr>
                       <td>
-                          <p><i class="icon-user"></i> Mark Otto</p>
+                          <p><i class="icon-shopping-cart"></i> 账单号:<?php echo $arrayBill['billID'];?></p>
                       </td>
                       <td>
-                          <p>Amount: $1,247</p>
+                          <p>总价:<?php echo $arrayBill['allPrice'];?>￥</p>
                       </td>
+                      <td><?php 
+                      if($arrayBill['dealTF']==1)
+                      {echo "处理完";}
+                      else
+                      {echo "待处理";}
+                      ?></td> 
                       <td>
-                          <p>Date: 7/19/2012</p>
-                          <a href="#">View Transaction</a>
+                          <p>时间:<?php echo $arrayBill['date'];?></p>
+                          
                       </td>
                   </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Audrey Ann</p>
-                      </td>
-                      <td>
-                          <p>Amount: $2,793</p>
-                      </td>
-                      <td>
-                          <p>Date: 7/12/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Mark Tompson</p>
-                      </td>
-                      <td>
-                          <p>Amount: $2,349</p>
-                      </td>
-                      <td>
-                          <p>Date: 3/10/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Ashley Jacobs</p>
-                      </td>
-                      <td>
-                          <p>Amount: $1,192</p>
-                      </td>
-                      <td>
-                          <p>Date: 1/19/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
+                  
+                 
+                <?php
+              }
+              ?>
                     
               </tbody>
             </table>
+            <p><a href="bill.php">详细信息</a></p>
         </div>
     </div>
 </div>
@@ -219,3 +174,12 @@
             </div>
         </div>
     </div>
+
+
+<script>
+function refreshClick()
+{ 
+  //****************************
+  }
+  
+</script>

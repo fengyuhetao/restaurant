@@ -30,6 +30,7 @@
           <th>时间</th>
           <th>桌号</th>
           <th>总价</th>
+          <th>处理完成</th>
           <th>处理人ID</th>
         </tr>
       </thead>
@@ -46,6 +47,12 @@
             <td><?php echo $array['date'];?></td>
             <td><?php echo $array['seatID'];?></td>
             <td><?php echo $array['allPrice'];?></td>
+            <td><?php 
+            if($array['dealTF']==1)
+            {echo "是";}
+            else
+            {echo "否";}
+            ?></td>
             <td><?php echo $array['staffID'];?></td>
             
           </tr>

@@ -7,64 +7,44 @@
         <li><a href="main.php">管理系统</a> <span class="divider">/</span></li>
         <li class="active">菜单</li>
     </ul>
-    <div class="container-fluid">
+   
+
+
+
+
+
+
+ <div class="container-fluid">
         <div class="row-fluid">
             <div class="row-fluid">
+            <?php
+                $i=0;
+                while($array1=mysql_fetch_array($select))
+                {
+                    if($i==4)
+                        {break;}
+                    $i++;
+            ?>
             <div class="block span3">
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img src="images/170x170.gif" alt="#">
+                        
+                        <img src="<?php echo $array1['image'];?>" alt="product" height="170" width="170">
                         <div class="caption">
                             <h3>
-                                Thumbnail label</h3>
+                                <?php echo $array1['foodName'];?></h3>
                             <p>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="block span3">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="images/170x170.gif" alt="#">
-                        <div class="caption">
-                            <h3>
-                                Thumbnail label</h3>
-                            <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="block span3">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="images/170x170.gif" alt="#">
-                        <div class="caption">
-                            <h3>
-                                Thumbnail label</h3>
-                            <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="block span3">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="images/170x170.gif" alt="#">
-                        <div class="caption">
-                            <h3>
-                                Thumbnail label</h3>
-                            <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php
+            }
+            ?>
+
+
+            
             </div>
             <!--<div class="btn-toolbar">
                 <button class="btn btn-primary">
@@ -173,3 +153,6 @@
         </div>
     </div>
 </div>
+
+
+          

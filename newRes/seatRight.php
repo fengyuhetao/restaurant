@@ -29,6 +29,7 @@
           <th>#</th>
           <th>桌号</th>
           <th>状态</th>
+          <th>容纳人数</th>
           <th>位置</th>
          <!-- <th style="width: 26px;"></th>-->
         </tr>
@@ -44,7 +45,16 @@
   <tr>
     <td></td>
     <td><?php echo $array['number'];?></td>
-    <td><?php echo $array['seatState'];?></td>
+    <td><?php 
+                if($array['seatState']==1)
+                {
+                  echo "有人";}
+                if($array['seatState']==0)
+                {
+                  echo "无人";}
+                ?>
+    </td>
+    <td><?php echo $array['capacity'];?>人</td>
     <td><?php echo $array['seatDirection'];?></td>
   </tr>
   

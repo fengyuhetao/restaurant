@@ -9,6 +9,12 @@ if (!isset($_SESSION)) {
 	  exit;}
 	//*******************myself codes start*************
 }
+include_once('conn/conn.php');
+$selectMenu=mysql_query("select * from tadayMenu ",$conn);
+$selectBill=mysql_query("select * from bill",$conn);
+$selectSeat=mysql_query("select * from seat",$conn);
+	  
+
 
 require "boot.php";
 require_once('conn/conn.php');
