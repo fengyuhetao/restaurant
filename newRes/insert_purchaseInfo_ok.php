@@ -13,7 +13,7 @@ $name=$_POST["name"];
 $wage=$_POST["wage"];
 $price=$_POST["price"];
 $sql=mysql_query("insert into ingredientpurchase(ingredientsID,purchaseID,number,price) values($stf,$name,$wage,$price);");
-echo "<script language='javascript'>alert('信息添加成功!');history.back();history.back();</script>";
+echo "<script language='javascript'>alert('信息添加成功!');window.location.href='insert_purchase.php';</script>";
 ?>
 </body>
 </html>

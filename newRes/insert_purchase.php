@@ -1,6 +1,6 @@
-    <?php include("conn/conn.php"); ?>
-	<?php 
-        if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
+<?php include("conn/conn.php"); ?>
+  <?php 
+   if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
             $page=$_GET['page'];
         }
         else{
@@ -12,31 +12,12 @@
         $page_page=ceil($row/$page_count);          //判断页数
         $last_record=($page-1)*$page_count;          //获取上一页的最后一条记录
     ?>
-    <script>
-		var ingredientsid=0,purchaseid=0;
-		function pass(ingredientsID,purchaseID){
-			alert(ingredientsID);
-			ingredientsid=ingredientsID;
-			purchaseid=purchaseID;
-		}
-		function del(){
-			//alert(staffid);
-			window.location.href="purchase_delete_info.php?ingredientsID="+ingredientsid+"&purchaseID="+purchaseid;
-		}
-	 	function stamp(obj)
-		{
-			var oldStr=document.body.innerHTML;
-			document.body.innerHTML=document.getElementById(obj).innerHTML;
-			window.print();
-			document.body.innerHTML=oldStr;
-		}                                                        //打印自己要打印的内容
-	</script>
-    <style type="text/css">
-		label{
-			display:inline-block;
-		}<!--自己加的-->
-    </style> 
     
+    <style type="text/css">
+    label{
+      display:inline-block;
+    }<!--自己加的-->
+    </style> 
     <?php include('boot.php');?>
       
     <div class="content">
@@ -113,3 +94,25 @@
             </div>
         </div>
     </div>
+
+  </body>
+  </html>
+<script>
+    var ingredientsid=0,purchaseid=0;
+    function pass(ingredientsID,purchaseID){
+      alert(ingredientsID);
+      ingredientsid=ingredientsID;
+      purchaseid=purchaseID;
+    }
+    function del(){
+      //alert(staffid);
+      window.location.href="purchase_delete_info.php?ingredientsID="+ingredientsid+"&purchaseID="+purchaseid;
+    }
+    function stamp(obj)
+    {
+      var oldStr=document.body.innerHTML;
+      document.body.innerHTML=document.getElementById(obj).innerHTML;
+      window.print();
+      document.body.innerHTML=oldStr;
+    }                                                        //打印自己要打印的内容
+  </script>

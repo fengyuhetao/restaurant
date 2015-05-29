@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
 
     <script src="lib/jquery-1.7.2.min.js" type="text/javascript"></script>
-
     <!-- Demo page code -->
 
     <style type="text/css">
@@ -154,6 +153,3 @@
             $('.demo-cancel-click').click(function() { return false; });
         });
     </script>
-    
-  </body>
-</html>
