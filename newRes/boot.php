@@ -1,3 +1,8 @@
+<?php
+include_once('conn/conn.php');
+$selectDealTFNum=mysql_query("select count(*) as count from bill where dealTF  is null; ",$conn);
+$arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -59,6 +64,8 @@
         <div class="navbar-inner">
                 <ul class="nav pull-right">
                     
+                    <li><a href="bill.php" title="您有账单待处理！" role="button"><i class="icon-envelope"></i>信息</span><span id ="remindNum"class="label label-warning"><?php echo $arrayDealTFNum['count'];?></span></a></i>
+
           
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
@@ -153,3 +160,54 @@
             $('.demo-cancel-click').click(function() { return false; });
         });
     </script>
+
+    <script>
+    var xmlHttp;
+    function createXMLHttpRequest(){
+        if (window.ActiveXObject)
+        {
+            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if (window.XMLHttpRequest)
+        {
+            xmlHttp = new XMLHttpRequest();
+        }
+    }
+    function doStart ()
+    {
+        createXMLHttpRequest();
+        var url = "refreshBill.php";
+        xmlHttp.open("GET",url,true);
+        xmlHttp.onreadystatechange = callback;
+        xmlHttp.send(null);
+    }
+    function callback()
+    {
+        if (xmlHttp.readyState == 4)
+        {
+            if (xmlHttp.status == 200)
+            {
+                var message = xmlHttp.responseXML.getElementsByTagName("message")[0].firstChild.data;
+                if ( message == "yes")
+                {
+                    //提示用户有新的订单
+                    alert("您有新的订单，请及时查看！");
+                    location.reload();
+                }
+                setTimeout("pollServer()",3000);//3s后再次请求后台
+            }
+        }
+    }
+    function pollServer() {
+        createXMLHttpRequest();
+        var url = "refreshBill.php";
+        xmlHttp.open("GET",url,true);
+        xmlHttp.onreadystatechange = callback;
+        xmlHttp.send(null);
+    }
+
+   
+
+    </script>
+
+    <?php echo "<script type='text/javascript'>doStart();</script>"; ?>
