@@ -1,3 +1,16 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
  <?php include("conn/conn.php"); ?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
@@ -72,8 +85,8 @@
           </div>
                     <footer>
                         <hr>
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+                        <p>&copy; 2015 by sunrise laboratory </p>
+                </footer>
     </div>
     
 <script>

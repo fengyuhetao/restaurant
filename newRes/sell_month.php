@@ -20,7 +20,7 @@ if (!isset($_SESSION)) {
 		$page=1;
 	}
 	$page_count=20;
-	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 1 DAY)");
+	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH)");
 	$row=mysql_num_rows($sql);                  //判断数据的数量
 	$page_page=ceil($row/$page_count);          //判断页数
 	$last_record=($page-1)*$page_count;          //获取上一页的最后一条记录

@@ -1,5 +1,6 @@
-	<?php include('boot.php');?>
-    
+<?php 
+include('conn/conn.php');?>
+<?php include('boot.php');?>
     <div class="content">
         
         <div class="header">
@@ -8,7 +9,7 @@
         </div>
         
                 <ul class="breadcrumb">
-            <li><a href="index.php">HOME</a> <span class="divider">/</span></li>
+            <li><a href="index.php">首页</a> <span class="divider">/</span></li>
             <li><a href="#">食材添加</a> <span class="divider">/</span></li>
         </ul>
 
@@ -17,11 +18,11 @@
    
                 <div class="well">
                     <ul class="nav nav-tabs">
-                      <li class="active">Profile</li>
+                      <li class="active">食材添加</li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                       <div class="tab-pane active in" id="home">
-                     <?php include('conn/conn.php');?>
+                     
                      <?php $sql=mysql_query("SELECT * from ingredientpurchase where ingredientsID=$_GET[id] and purchaseID=$_GET[purchaseID]");
                            $info=mysql_fetch_array($sql);
                      ?>
@@ -44,12 +45,8 @@
                     
                     <footer>
                         <hr>
-                        
-                        <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-                        
-
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+                        <p>&copy; 2015 by sunrise laboratory </p>
+                </footer>
                     
             </div>
         </div>

@@ -6,11 +6,11 @@ if (!isset($_SESSION)) {
   //*******************myself codes start*************
    if(!isset($_SESSION['MM_Username']))
   {
-	  header("Location: index.php");
-	  exit;}
-	//*******************myself codes start*************
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
 }
-
 include_once('conn/conn.php');
 $id=$_GET["iD"];
 $selectAll=mysql_query("select * from bill where billID=$id",$conn);

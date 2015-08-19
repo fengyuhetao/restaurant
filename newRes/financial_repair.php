@@ -1,5 +1,18 @@
-<?php include ("conn/conn.php"); ?>
 <?php 
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
+<?php 
+  include ("conn/conn.php"); 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
 		$page=$_GET['page'];
 	}
@@ -26,7 +39,6 @@ function stamp(obj)
 			display:inline-block;
 		}<!--自己加的-->
 </style>
-
 <?php include('boot.php');?>
 
 <div class="content">
@@ -84,9 +96,9 @@ function stamp(obj)
                   <hr/>
                   总维修金额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
                  </div>
-					<footer>
+					 <footer>
                         <hr>
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
+                        <p>&copy; 2015 by sunrise laboratory </p>
                     </footer>    
             </div>
         </div>

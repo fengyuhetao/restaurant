@@ -1,4 +1,17 @@
-<?php include "conn/conn.php";
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}
+include "conn/conn.php";
 function CleanHtmlTags( $content )
 {
 	$content = htmlspecialchars( $content );
@@ -18,8 +31,7 @@ function CleanHtmlTags( $content )
 	
 ?>
 <?php include("boot.php");?>
-
-    <style type="text/css">
+<style type="text/css">
 		label{
 			display:inline-block;
 		}<!--自己加的-->
@@ -105,11 +117,7 @@ function CleanHtmlTags( $content )
                     
                     <footer>
                         <hr>
-                        
-                        <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-                        
-
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
+                        <p>&copy; 2015 by sunrise laboratory </p>
                     </footer>
                     
             </div>

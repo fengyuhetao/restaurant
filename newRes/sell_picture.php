@@ -1,97 +1,27 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
 <?php include("conn/conn.php"); ?>
 <?php 
 	$arr=array();
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 1 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 2 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 3 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 4 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 5 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 6 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 7 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 8 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 9 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 10 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 11 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 12 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 13 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 14 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 15 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 16 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 17 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 18 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 19 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 20 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 21 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 22 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 23 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 24 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 25 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 26 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 27 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 28 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 29 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL 30 DAY)");
-	$info=mysql_fetch_array($sql);
-	array_push($arr,intval($info['sumprice']));
-	
+	$i=1;
+	while($i<31)
+	{
+		$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL $i DAY)");
+		$info=mysql_fetch_array($sql);
+		array_push($arr,intval($info['sumprice']));
+		$i++;
+	}
 	$data=json_encode($arr);
  ?>
 <!doctype html>
@@ -128,11 +58,11 @@ function Resize(oframe,obody){
 $(function () {
  	    $('#chart_pie').highcharts({
         title: {
-            text: 'MONTHLY SELL CHART',
+            text: '月销售额',
             x: -20 //center
         },
         subtitle: {
-            text: 'Source: Restaurant.com',
+            text: '',
             x: -20
         },
         xAxis: {
@@ -158,7 +88,7 @@ $(function () {
             borderWidth: 0
         },
         series: [{
-            name: '销售额',
+            name: '月销售额',
             data: <?php echo $data; ?>
         }]
     });

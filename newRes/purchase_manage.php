@@ -1,4 +1,17 @@
-<?php include("conn/conn.php");?>
+<?php 
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}
+include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
 		$page=$_GET['page'];
@@ -20,9 +33,7 @@
       display:inline-block;
     }<!--自己加的-->
     </style>
-
-<?php include('boot.php');?>   
-
+<?php include('boot.php');?> 
  	<div class="content">
     	  <div class="header">    
             <h1 class="page-title">库存量</h1>
@@ -74,7 +85,7 @@
                     </div>
                     <footer>
                         <hr>
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
+                        <p>&copy; 2015 by sunrise laboratory </p>
                     </footer>
   </body>
 </html>

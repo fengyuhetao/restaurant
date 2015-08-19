@@ -1,3 +1,16 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
 <?php include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来

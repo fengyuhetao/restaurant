@@ -1,4 +1,3 @@
-<?php session_start();?>
 <?php include('conn/conn.php');?>
 <?php
 $stf=$_POST["stf"];

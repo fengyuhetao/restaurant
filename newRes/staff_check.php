@@ -1,3 +1,16 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
 <?php include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
@@ -100,50 +113,75 @@ function stamp(obj)
 <script>
 	var oTab=document.getElementById('show');
 	var oTab1=document.getElementById('search');
-	var oBtn=document.getElementById('searchButton');
-	var oName=document.getElementById('name');
-	var oID=document.getElementById('staffID');
+	
 	var tbody= document.createElement('tbody'); //新建一个tbody类型的Element节点
 	oTab1.appendChild(tbody);
 	
 	function chaxun()
 	{
-		id=1;
-		oTab1.removeChild(tbody);
-		tbody = document.createElement("tbody"); //新建一个tbody类型的Element节点
-		oTab1.appendChild(tbody);
-		for(var i=1;i<oTab.tBodies[0].rows.length+1;i++)
-		{   
-			var sTab=oTab.tBodies[0].rows[i].cells[2].innerHTML.toLowerCase();
-			var sTxt=oName.value.toLowerCase();
+		var oName=document.getElementById('name');
+		if(oName.value=="")
+			alert("请输入名字");
+		else
+		{
+			var test;
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+  			{// code for IE7+, Firefox, Chrome, Opera, Safari
+  				xmlhttp=new XMLHttpRequest();
+ 			}
+	  	 	else
+  			{// code for IE6, IE5
+  				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+			xmlhttp.open("GET","test.php?name="+oName.value,true);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange=function()
+	  	    {
+ 				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    			{
+					var num=1;
+    				test=xmlhttp.responseText;
+					var b=new Array();
+					b=test.split(" ");
+					if(b[0]>0)
+					{
+						var id=1;
+						oTab1.removeChild(tbody);
+						tbody = document.createElement("tbody"); //新建一个tbody类型的Element节点
+						oTab1.appendChild(tbody);
+						for(var i=0;i<b[0];i++)
+						{   	
+							var oTr=document.createElement('tr');
 			
-			if(sTab.search(sTxt)!=-1)
-			{
-				var oTr=document.createElement('tr');
-			
-				var oTd=document.createElement('td');
-				oTd.innerHTML=id++;	
-				oTr.appendChild(oTd);
+							var oTd=document.createElement('td');
+							oTd.innerHTML=id++;	
+							oTr.appendChild(oTd);
+							
+							var oTd=document.createElement('td');
+							oTd.innerHTML=b[num++];
+							oTr.appendChild(oTd);
 				
-				var oTd=document.createElement('td');
-				oTd.innerHTML=oTab.tBodies[0].rows[i].cells[0].innerHTML;
-				oTr.appendChild(oTd);
+							var oTd=document.createElement('td');
+							oTd.innerHTML=b[num++];
+							oTr.appendChild(oTd);
+					
+							var oTd=document.createElement('td');
+							oTd.innerHTML=b[num++];
+							oTr.appendChild(oTd);
 				
-				var oTd=document.createElement('td');
-				oTd.innerHTML=oTab.tBodies[0].rows[i].cells[1].innerHTML;
-				oTr.appendChild(oTd);
-				
-				var oTd=document.createElement('td');
-				oTd.innerHTML=oTab.tBodies[0].rows[i].cells[2].innerHTML;
-				oTr.appendChild(oTd);
-				
-				var oTd=document.createElement('td');
-				oTd.innerHTML=oTab.tBodies[0].rows[i].cells[3].innerHTML;
-				oTr.appendChild(oTd);
-				
-				tbody.appendChild(oTr);
-				Resize('main_info','main_check');
+							var oTd=document.createElement('td');
+							oTd.innerHTML=b[num++];
+							oTr.appendChild(oTd);
+					
+							tbody.appendChild(oTr);		
+							Resize('main_info','main_check');		
+						}	
+					}
+					else
+						alert("不存在此人");
+    			}
 			}
-		}
-}
+  		}
+	}
 </script>

@@ -6,7 +6,9 @@
 </head>
 
 <body>
-<?php include('conn/conn.php');?>
+<?php
+include('conn/conn.php');
+?>
 <?php
 $stf=$_POST["stf"];
 $name=$_POST["name"];

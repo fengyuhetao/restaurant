@@ -205,12 +205,8 @@ San Jose, CA 95101
                     
                     <footer>
                         <hr>
-                        
-                        <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-                        
-
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+                        <p>&copy; 2015 by sunrise laboratory </p>
+                </footer>
                     
             </div>
         </div>

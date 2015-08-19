@@ -6,9 +6,10 @@ if (!isset($_SESSION)) {
   //*******************myself codes start*************
    if(!isset($_SESSION['MM_Username']))
   {
-	  header("Location: index.php");
-	  exit;}
-	//*******************myself codes start*************
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
 }
 include_once('conn/conn.php');
 if(isset($_GET['page'])){
@@ -22,15 +23,8 @@ if(isset($_GET['page'])){
 	  $page_page=ceil($row/$page_count);
 	  $offect=($page-1)*$page_count;   //获取上一页的最后一条记录，从而计算下一页的起始记录
 	  $selects=mysql_query("select * from bill  limit $offect,$page_count",$conn);
-
-
 require "boot.php";
 require_once('conn/conn.php');
 include("billRight.php");
 
 ?>
-
-<script type="text/javascript">
-var muser = document.getElementById('iuser');
-muser.innerHTML = "<?php echo $_SESSION['MM_Username'];?>";
-</script>

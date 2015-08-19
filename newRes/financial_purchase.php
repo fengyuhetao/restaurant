@@ -1,3 +1,4 @@
+<?php include('boot.php');?>
 <?php include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
@@ -26,8 +27,6 @@ function stamp(obj)
 	document.body.innerHTML=oldStr;
 }
 </script>
-
-<?php include('boot.php');?>
 
 <div class="content">
     	<div class="header">
@@ -91,10 +90,10 @@ function stamp(obj)
 <hr/>
 总维修金额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
            </div>
-					<footer>
-                        <hr>
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+					 <footer>
+              <hr>
+                <p>&copy; 2015 by sunrise laboratory </p>
+           </footer>
             </div>
         </div>
     </div>

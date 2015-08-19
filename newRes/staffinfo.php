@@ -1,3 +1,16 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
 <?php require_once('conn/conn.php');
 if($_GET["id"]!="")
 {
@@ -188,24 +201,13 @@ else
                     
                     <footer>
                         <hr>
-                        
-                        <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-                        
-
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+                        <p>&copy; 2015 by sunrise laboratory </p>
+                </footer>
                     
             </div>
         </div>
     </div>
    
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-    </script>
     
     <!--自定义的js-->
     <script>

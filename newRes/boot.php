@@ -206,8 +206,9 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
         xmlHttp.send(null);
     }
 
-   
-
     </script>
-
+<script type="text/javascript">
+    var muser = document.getElementById('iuser');
+    muser.innerHTML = "<?php echo $_SESSION['MM_Username'];?>";
+</script>
     <?php echo "<script type='text/javascript'>doStart();</script>"; ?>

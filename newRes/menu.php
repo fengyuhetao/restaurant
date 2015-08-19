@@ -1,4 +1,5 @@
 <?php
+
 //initialize the session
 if (!isset($_SESSION)) {
   session_start();
@@ -6,11 +7,11 @@ if (!isset($_SESSION)) {
   //*******************myself codes start*************
    if(!isset($_SESSION['MM_Username']))
   {
-	  header("Location: index.php");
-	  exit;}
-	//*******************myself codes start*************
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
 }
-
 include_once('conn/conn.php');
 if(isset($_GET['page'])){
 		$page=$_GET['page'];

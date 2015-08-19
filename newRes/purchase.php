@@ -1,3 +1,16 @@
+<?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+  
+  //*******************myself codes start*************
+   if(!isset($_SESSION['MM_Username']))
+  {
+      header("Location: index.php");
+      exit;
+  }
+    //*******************myself codes start*************
+}?>
 <?php include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
@@ -56,8 +69,7 @@ function stamp(obj)
               <tbody>
               <?php 
                     $sqls=mysql_query("select * from ingredientpurchase limit $last_record,$page_count;");
-                    $array=mysql_fetch_array($sqls);
-                    do{
+                while($array=mysql_fetch_array($sqls)){
               ?>
               <tr>
                   <td><?php echo $array['ingredientsID'];?></td>
@@ -67,7 +79,7 @@ function stamp(obj)
                   <td><?php echo $array['number']*$array['price'];?>
               </tr>
               <?php 
-              }while($array=mysql_fetch_array($sqls));
+              }
               ?>
               </tbody>
               </table>
@@ -90,8 +102,8 @@ function stamp(obj)
            </div>
 					<footer>
                         <hr>
-                        <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
-                    </footer>
+                        <p>&copy; 2015 by sunrise laboratory </p>
+                </footer>
             </div>
         </div>
     </div>
