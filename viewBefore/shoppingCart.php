@@ -124,7 +124,11 @@
           </tr>
           <?php 
               include_once('conn/conn.php');
-              $selects=mysql_query("select * from tadayMenu ",$conn);
+              $selects=mysql_query("select * from tadayMenu",$conn);
+              if($selects)
+                echo "<script>alert(0);</script>";
+              else 
+                echo "<script>alert(1);</script>";
               while($array=mysql_fetch_array($selects)){
           ?>
           <tr>

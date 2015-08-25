@@ -20,7 +20,7 @@ include("conn/conn.php"); ?>
             $page=1;
         }
         $page_count=20;
-        $sql=mysql_query("select * from ingredientpurchase");
+        $sql=mysql_query("select * from ingredientpurchasetemp");
         $row=mysql_num_rows($sql);                  //判断数据的数量
         $page_page=ceil($row/$page_count);          //判断页数
         $last_record=($page-1)*$page_count;          //获取上一页的最后一条记录
@@ -57,18 +57,18 @@ include("conn/conn.php"); ?>
                                 <th>操作</th>
                             </tr>
                             <?php 
-                                  $sqls=mysql_query("select * from ingredientpurchase");
+                                  $sqls=mysql_query("select * from ingredientpurchasetemp");
                                   $array=mysql_fetch_array($sqls);
                                   do{
                             ?>        <!-- 输出数据-->
                             <tr>
-                                <td><?php echo $array['ingredientsID'];?></td>
-                                <td><?php echo $array['purchaseID'];?></td>
-                                <td><?php echo $array['number'];?></td>
-                                <td><?php echo $array['price'];?></td>
+                                <td><?php echo $array['ingredientIDtemp'];?></td>
+                                <td><?php echo $array['purchaseIDtemp'];?></td>
+                                <td><?php echo $array['numbertemp'];?></td>
+                                <td><?php echo $array['pricetemp'];?></td>
                                 <td >
-                                    <a href="modify_purchaseInfo.php?id=<?php echo $array['ingredientsID'];?>&purchaseID=<?php echo $array['purchaseID'];?>" target="_parent"><i class="icon-pencil"></i></a>
-                                    <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove" onClick="pass(<?php echo $array['ingredientsID'];?>,<?php echo $array['purchaseID'];?>)"></i></a>
+                                    <a href="modify_purchaseInfo.php?id=<?php echo $array['ingredientIDtemp'];?>&purchaseID=<?php echo $array['purchaseIDtemp'];?>" target="_parent"><i class="icon-pencil"></i></a>
+                                    <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove" onClick="pass(<?php echo $array['ingredientIDtemp'];?>,<?php echo $array['purchaseIDtemp'];?>)"></i></a>
                                 </td>
                             </tr>
                             <?php 
@@ -78,8 +78,9 @@ include("conn/conn.php"); ?>
                             </div>      
                                 
                             <div class="pagination" >
-							      <a class="btn btn-primary" style="float:left;" href="insert.php" target="_top"><i class="icon-plus"></i>添加</a>
-                                              <ul style="float:right;">
+                            <a href="#dealModal" class="btn btn-primary" data-toggle="modal"><i class="icon-save"></i>处理</a>
+
+                          	                    <ul style="float:right;">
                                                   <li><a href="insert_purchase.php?page=1">首页</a> </li>
                                                   <li><a href="insert_purchase.php?page=<?php if($page==1){echo $page=1; }else{ echo $page-1; }?>">上一页</a></li>
                                                   <li><a href="insert_purchase.php?page=<?php if($page<$page_page){echo $page+1;}else{ echo $page_page;}?>">下一页</a></li>
@@ -98,6 +99,27 @@ include("conn/conn.php"); ?>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
                             <button class="btn btn-danger" data-dismiss="modal" id="del" onclick="del();">删除</button>
+                        </div>
+                    </div>
+                    <div class="modal small hide fade" id="dealModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">提醒</h3>
+                        </div>
+                        <div class="modal-body">
+                       	 <p class="error-text"><i class="icon-warning-sign modal-icon"></i>请选择仓库?</p><br>
+                         <?php 
+    					    $repertory=mysql_query("select * from repertory");
+    					    $row_repertory=1;
+							while($array_repertory=mysql_fetch_array($repertory))
+							{
+  						  ?>
+                            <input type="radio" value="<?php echo $array_repertory['repertoryID'];?>" name="address"><?php echo "仓库".$row_repertory.":".$array_repertory['position']; $row_repertory++; ?><br>
+                     		<?php }?>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                            <button class="btn btn-danger" data-dismiss="modal" id="deal" onclick="deal();">确定</button>
                         </div>
                     </div>
                      <footer>
@@ -121,6 +143,22 @@ include("conn/conn.php"); ?>
       //alert(staffid);
       window.location.href="purchase_delete_info.php?ingredientsID="+ingredientsid+"&purchaseID="+purchaseid;
     }
+	
+	function deal(){
+		var aRadio=document.getElementsByName('address');
+		var address;
+		var panduan=0;
+		for(var i=0;i<aRadio.length;i++)
+			if(aRadio[i].checked)
+			{
+				panduan=1;
+				address=aRadio[i].value;
+			}
+		if(panduan==1)
+			window.location.href="deal.php?repertoryID"+address;
+		else 
+			alert("请选择仓库");
+	}
     function stamp(obj)
     {
       var oldStr=document.body.innerHTML;

@@ -42,13 +42,13 @@
                       <div class="tab-pane active in" id="home">
                     <form id="tab" action="insert_purchaseInfo_ok.php" method="post">
                         <label>食材ID</label>
-                        <input type="text" name="stf" id="stf" class="input-xlarge"/>
+                        <input type="text" name="stf" id="stf" class="input-xlarge" value="<?php echo $_GET['ingredientsID'];?>"/>
                         <label>采购ID</label>
                         <input type="text" name="name" id="name" class="input-xlarge"/>
                         <label>数量</label>
                         <input type="text" name="wage" id="wage" class="input-xlarge">
                         <label>单价</label>
-                       <input type="text" name="price" id="price" class="input-xlarge">
+                       <input type="text" name="price" id="price" class="input-xlarge" value="<?php echo $_GET['price'];?>">
                         <br/>
                         <input type="submit" class="btn" value="添加" onClick="return check();"/>
                     </form>

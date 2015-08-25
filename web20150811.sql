@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2015-05-29 20:37:08
+Date: 2015-08-25 19:01:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -146,6 +146,8 @@ CREATE TABLE `ingredientpurchase` (
 -- Records of ingredientpurchase
 -- ----------------------------
 INSERT INTO `ingredientpurchase` VALUES ('1', '1', '10', '3');
+INSERT INTO `ingredientpurchase` VALUES ('1', '123', '234', '3');
+INSERT INTO `ingredientpurchase` VALUES ('1', '1234', '10', '3');
 INSERT INTO `ingredientpurchase` VALUES ('2', '1', '10', '10');
 INSERT INTO `ingredientpurchase` VALUES ('3', '1', '10', '1');
 INSERT INTO `ingredientpurchase` VALUES ('4', '1', '10', '15');
@@ -155,6 +157,23 @@ INSERT INTO `ingredientpurchase` VALUES ('7', '1', '10', '2');
 INSERT INTO `ingredientpurchase` VALUES ('8', '1', '10', '1');
 INSERT INTO `ingredientpurchase` VALUES ('9', '1', '10', '100');
 INSERT INTO `ingredientpurchase` VALUES ('10', '1', '10', '30');
+
+-- ----------------------------
+-- Table structure for `ingredientpurchasetemp`
+-- ----------------------------
+DROP TABLE IF EXISTS `ingredientpurchasetemp`;
+CREATE TABLE `ingredientpurchasetemp` (
+  `ingredientIDtemp` bigint(20) NOT NULL,
+  `purchaseIDtemp` bigint(20) NOT NULL,
+  `numbertemp` float NOT NULL,
+  `pricetemp` float default NULL,
+  PRIMARY KEY  (`ingredientIDtemp`,`purchaseIDtemp`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ingredientpurchasetemp
+-- ----------------------------
+INSERT INTO `ingredientpurchasetemp` VALUES ('1', '1234', '10', '3');
 
 -- ----------------------------
 -- Table structure for `ingredientrepertory`
@@ -170,7 +189,7 @@ CREATE TABLE `ingredientrepertory` (
 -- ----------------------------
 -- Records of ingredientrepertory
 -- ----------------------------
-INSERT INTO `ingredientrepertory` VALUES ('1', '1', '10');
+INSERT INTO `ingredientrepertory` VALUES ('1', '1', '20');
 INSERT INTO `ingredientrepertory` VALUES ('2', '1', '10');
 INSERT INTO `ingredientrepertory` VALUES ('2', '2', '10');
 INSERT INTO `ingredientrepertory` VALUES ('4', '2', '20');
@@ -382,4 +401,4 @@ INSERT INTO `usersystem` VALUES ('1', 'admin', 'admin', '0', 'temp@gmail.com');
 -- View structure for `tadaymenu`
 -- ----------------------------
 DROP VIEW IF EXISTS `tadaymenu`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`web`@`localhost` SQL SECURITY DEFINER VIEW `tadaymenu` AS select `food`.`foodName` AS `foodName`,`food`.`price` AS `price`,`food`.`foodType` AS `foodType`,`food`.`description` AS `description`,`menu`.`state` AS `state`,`food`.`imageLocation` AS `image` from (`menu` join `food`) where (`menu`.`foodID` = `food`.`foodID`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`web`@`localhost` SQL SECURITY DEFINER VIEW `tadaymenu` AS select `web`.`food`.`foodName` AS `foodName`,`web`.`food`.`price` AS `price`,`web`.`food`.`foodType` AS `foodType`,`web`.`food`.`description` AS `description`,`web`.`menu`.`state` AS `state`,`web`.`food`.`imageLocation` AS `image` from (`menu` join `food`) where (`web`.`menu`.`foodID` = `web`.`food`.`foodID`) ;

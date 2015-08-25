@@ -20,8 +20,7 @@ include("conn/conn.php");?>
 		$page=1;
 	}
 	$page_count=20;
-	$sql=mysql_query("SELECT IngredientRepertory.repertoryID,IngredientRepertory.ingredientsID,INGREDIENTS.ingredientName, IngredientRepertory.number, INGREDIENTS.description FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID INNER JOIN
- REPERTORY ON IngredientRepertory.repertoryID = REPERTORY.repertoryID 
+	$sql=mysql_query("SELECT IngredientRepertory.ingredientsID,IngredientRepertory.repertoryID,IngredientRepertory.number,INGREDIENTS.ingredientName, ingredients.price FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID
  ");
 	$row=mysql_num_rows($sql);                  //判断数据的数量
 	$page_page=ceil($row/$page_count);          //判断页数
@@ -53,12 +52,13 @@ include("conn/conn.php");?>
                  <tr align="center" valign="middle">
                    <th>仓库ID</th>
                    <th>食材ID</th>
-                   <th>食材名称</th>
+                   <th>食材名</th>
                    <th>数量</th>
+                   <th>单价</th>
+                   <th>操作</th>
                 </tr>
               <?php 
-                  $sqls=mysql_query("SELECT IngredientRepertory.repertoryID,IngredientRepertory.ingredientsID,INGREDIENTS.ingredientName, IngredientRepertory.number, INGREDIENTS.description FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID INNER JOIN
-                      REPERTORY ON IngredientRepertory.repertoryID = REPERTORY.repertoryID  limit $last_record,$page_count
+                  $sqls=mysql_query("SELECT IngredientRepertory.ingredientsID,IngredientRepertory.repertoryID,IngredientRepertory.number,INGREDIENTS.ingredientName, ingredients.price FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID  limit $last_record,$page_count
                   ");
                 $array=mysql_fetch_array($sqls);
              do{
@@ -68,6 +68,10 @@ include("conn/conn.php");?>
                  <td><?php echo $array['ingredientsID'];?></td>
                  <td><?php echo $array['ingredientName'];?></td>
                  <td><?php echo $array['number'];?></td>
+                 <td><?php echo $array['price'];?></td>
+                 <td>
+                	 <a href="insert.php?ingredientsID=<?php echo $array['ingredientsID'];?>&price=<?php echo $array['price'];?>"><i class="icon-plus"></i></a>
+                 </td>
             </tr>
           <?php 
           }while($array=mysql_fetch_array($sqls));
