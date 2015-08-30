@@ -12,24 +12,8 @@ if (!isset($_SESSION)) {
     //*******************myself codes start*************
 }
 include "conn/conn.php";
-function CleanHtmlTags( $content )
-{
-	$content = htmlspecialchars( $content );
-	$content = str_replace( '\n', '<br />', $content );
-	$content = str_replace( '  ', '&nbsp;&nbsp;' , $content );
-	return str_replace( '\t', '&nbsp;&nbsp;&nbsp;&nbsp;', $content );
-}
 ?>
-<?php
-	if($_POST['id']!="")
-	{
-		$desc=CleanHtmlTags($_POST['desc']);
- 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".$_POST['id'].",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
-		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
-	echo "<script> alert('添加成功！');window.location.href='repairinfo.php'</script>";	
-	}
-	
-?>
+
 <?php include("boot.php");?>
 <style type="text/css">
 		label{
@@ -59,7 +43,7 @@ function CleanHtmlTags( $content )
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="repairinfo" method="post">
+    <form name="foodinfo" method="post" action="add_foodinfo_ok.php" enctype="multipart/form-data">
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
         <input type="text" name="id" class="input-xlarge">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,8 +61,7 @@ function CleanHtmlTags( $content )
         </textarea>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>选&nbsp;&nbsp;择&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
-        <input type="file" name="uploadFile" onchange="load();"/>
-        <img id="picture" src="" alt="product" height="170" width="170">
+        <input type="file" name="uploadfile" onchange="load();" id="picture"/>
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -131,12 +114,8 @@ function CleanHtmlTags( $content )
 	{
 		if(!checkform(form))
 			return false;
-		document.repairinfo.submit();
+		document.foodinfo.submit();
 	}
-  function load()
-  {
-      var oimg=document.getelementByID('')
-  }
 	</script>
 
 

@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="repairinfo">
+    <form name="foodinfo">
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
         <input name="id" type="text" class="input-xlarge" value="<?php echo $row["foodID"];?>" readonly>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
