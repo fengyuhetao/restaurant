@@ -114,6 +114,8 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
         <ul id="dashboard-pur" class="nav nav-list collapse">
             <li ><a href="purchase_manage.php">库存信息</a></li>
             <li ><a href="insert_purchase.php">采购管理</a></li>
+            <li ><a href="ingredientsinfo.php">食材管理</a></li>
+            <li ><a href="foodinfo.php">菜品管理</a></li>
   <!--         <li ><a href="404.html">404 page</a></li>
             <li ><a href="500.html">500 page</a></li>
             <li ><a href="503.html">503 page</a></li>       -->
@@ -144,6 +146,7 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
         <a href="#legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-legal"></i>后勤管理<i class="icon-chevron-up"></i></a>
         <ul id="legal-menu" class="nav nav-list collapse">
             <li ><a href="repairinfo.php">维修记录</a></li>
+            <li ><a href="repertoryinfo.php">仓库管理</a></li>
             <!--<li ><a href="terms-and-conditions.html">Terms and Conditions</a></li>-->
         </ul>
 

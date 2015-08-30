@@ -155,7 +155,7 @@ include("conn/conn.php"); ?>
 				address=aRadio[i].value;
 			}
 		if(panduan==1)
-			window.location.href="deal.php?repertoryID"+address;
+			window.location.href="deal.php?repertoryID="+address;
 		else 
 			alert("请选择仓库");
 	}

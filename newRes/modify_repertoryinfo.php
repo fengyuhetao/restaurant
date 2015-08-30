@@ -1,37 +1,16 @@
+<?php include('conn/conn.php');?>
 <?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-  
-  //*******************myself codes start*************
-   if(!isset($_SESSION['MM_Username']))
-  {
-      header("Location: index.php");
-      exit;
-  }
-    //*******************myself codes start*************
-}
-include "conn/conn.php";
-function CleanHtmlTags( $content )
+$id="";
+if($_SERVER['REQUEST_METHOD']=="GET")
 {
-	$content = htmlspecialchars( $content );
-	$content = str_replace( '\n', '<br />', $content );
-	$content = str_replace( '  ', '&nbsp;&nbsp;' , $content );
-	return str_replace( '\t', '&nbsp;&nbsp;&nbsp;&nbsp;', $content );
+	$id=$_GET["id"];
+	$selectsql="select * from repertory where repertoryID=".$id."";
+	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
+	$row = mysql_fetch_assoc($sql);
 }
 ?>
-<?php
-	if($_POST['id']!="")
-	{
-		$desc=CleanHtmlTags($_POST['desc']);
- 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".$_POST['id'].",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
-		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
-	echo "<script> alert('添加成功！');window.location.href='repairinfo.php'</script>";	
-	}
-	
-?>
-<?php include("boot.php");?>
-<style type="text/css">
+<?php include('boot.php');?>
+    <style type="text/css">
 		label{
 			display:inline-block;
 		}<!--自己加的-->
@@ -41,13 +20,13 @@ function CleanHtmlTags( $content )
         
         <div class="header">
             
-            <h1 class="page-title">添加维修记录</h1>
+            <h1 class="page-title">修改仓库信息</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li><a href="staffinfo.php">维修记录</a> <span class="divider">/</span></li>
-            <li class="active">添加维修记录</li>
+            <li><a href="repertoryinfo.php">仓库管理</a> <span class="divider">/</span></li>
+            <li class="active">修改仓库信息</li>
         </ul>
 
         <div class="container-fluid">
@@ -59,25 +38,21 @@ function CleanHtmlTags( $content )
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="repairinfo" method="post">
-        <label>维&nbsp;&nbsp;修&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input type="text" name="id" class="input-xlarge">
+    <form name="repertoryinfo" method="post" action="modify_repertoryinfo_ok.php?id=<?php echo $_GET['id'];?>">
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
+        <input type="text" name="repertoryid" class="input-xlarge" value="<?php echo $row['repertoryID'];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</label>
-        <input type="text" name="date" class="input-xlarge">
+        <label>仓&nbsp;&nbsp;&nbsp;&nbsp;库&nbsp;&nbsp;&nbsp;&nbsp;量</label>
+        <input type="text" name="capacity" class="input-xlarge" value="<?php echo $row['capacity'];?>">
         <br/>
-        <label>花&nbsp;&nbsp;费&nbsp;&nbsp;金&nbsp;&nbsp;&nbsp;额</label>
-        <input type="text" name="cos" class="input-xlarge">
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;面&nbsp;&nbsp;&nbsp;积</label>
+        <input type="text" name="area" class="input-xlarge" value="<?php echo $row['area'];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      	<label>负责人工号</label>
-        <input type="text" name="staffID" class="input-xlarge">
+        <label>负责人工号</label>
+        <input type="text" name="staffID" class="input-xlarge" value="<?php echo $row['staffID'];?>">
         <br/>
-        <label>事&nbsp;&nbsp;件&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" rows="5" class="input-xlarge">
-			2817 S 49th
-			Apt 314
-			San Jose, CA 95101
-        </textarea>
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;地&nbsp;&nbsp;&nbsp;址</label>
+        <input type="text" name="position" class="input-xlarge" value="<?php echo $row['position'];?>">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -92,7 +67,7 @@ function CleanHtmlTags( $content )
 
 </div>
 <div class="btn-toolbar">
-    <button class="btn btn-primary" onClick="return TianJia(form)" value="ok"><i class="icon-save"></i> 确定</button>
+    <button class="btn btn-primary" onClick="return TianJia(form)" value=" "><i class="icon-save"></i> 保存</button>
    <!-- <a href="#myModal" data-toggle="modal" class="btn">Delete</a>-->
   <div class="btn-group">
   </div>
@@ -118,22 +93,31 @@ function CleanHtmlTags( $content )
                     <footer>
                         <hr>
                         <p>&copy; 2015 by sunrise laboratory </p>
-                    </footer>
+                </footer>
                     
             </div>
         </div>
     </div>
     
+
+
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+        $(function() {
+            $('.demo-cancel-click').click(function(){return false;});
+        });
+    </script>
     <script type="text/javascript" src="js/check.js"></script>
- 	<script>
+    <script>
 	function TianJia(form)
 	{
 		if(!checkform(form))
 			return false;
-		if(!checkdate(repairinfo.date))
-			return false;
-		document.repairinfo.submit();
+		document.repertoryinfo.submit();
 	}
 	</script>
+  </body>
+</html>
 
 

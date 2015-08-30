@@ -24,9 +24,15 @@ function CleanHtmlTags( $content )
 	if($_POST['id']!="")
 	{
 		$desc=CleanHtmlTags($_POST['desc']);
- 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".$_POST['id'].",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
-		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
-	echo "<script> alert('添加成功！');window.location.href='repairinfo.php'</script>";	
+    $selectSQL="select * from repertory";
+    $sql = mysql_query($selectSQL, $conn) or die(mysql_error());
+    while($row=mysql_fetch_array($sql)){
+         $insertSQL1="insert into ingredientrepertory(ingredientsID,repertoryID,number) values ($_POST[id],$row[repertoryID],0);";
+         $sql2=mysql_query($insertSQL1,$conn) or die(mysql_error());
+       }
+    $insertSQL ="insert into ingredients(ingredientsID,ingredientName,price,number,description) values ($_POST[id],$_POST[name],$_POST[price],0,$desc);";
+		$sql1 = mysql_query($insertSQL, $conn) or die(mysql_error());
+	echo "<script> alert('添加成功！');window.location.href='ingredientsinfo.php'</script>";	
 	}
 	
 ?>
@@ -59,25 +65,19 @@ function CleanHtmlTags( $content )
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="repairinfo" method="post">
-        <label>维&nbsp;&nbsp;修&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input type="text" name="id" class="input-xlarge">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</label>
-        <input type="text" name="date" class="input-xlarge">
+    <form name="ingredintsinfo" method="post">
+        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
+        <input name="id" type="text" class="input-xlarge" value="<?php echo $row["ingredientsID"];?>">
         <br/>
-        <label>花&nbsp;&nbsp;费&nbsp;&nbsp;金&nbsp;&nbsp;&nbsp;额</label>
-        <input type="text" name="cos" class="input-xlarge">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      	<label>负责人工号</label>
-        <input type="text" name="staffID" class="input-xlarge">
+        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称</label>
+        <input name="name" type="text" class="input-xlarge" value="<?php echo $row["ingredientName"];?>">
         <br/>
-        <label>事&nbsp;&nbsp;件&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" rows="5" class="input-xlarge">
-			2817 S 49th
-			Apt 314
-			San Jose, CA 95101
-        </textarea>
+        <label>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</label>
+        <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br/>
+        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
+        <textarea name="desc" cols="" rows="5" class="input-xlarge"><?php echo $row["description"];?></textarea>
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -130,9 +130,7 @@ function CleanHtmlTags( $content )
 	{
 		if(!checkform(form))
 			return false;
-		if(!checkdate(repairinfo.date))
-			return false;
-		document.repairinfo.submit();
+		document.ingredientsinfo.submit();
 	}
 	</script>
 

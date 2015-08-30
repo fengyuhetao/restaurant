@@ -12,24 +12,8 @@ if (!isset($_SESSION)) {
     //*******************myself codes start*************
 }
 include "conn/conn.php";
-function CleanHtmlTags( $content )
-{
-	$content = htmlspecialchars( $content );
-	$content = str_replace( '\n', '<br />', $content );
-	$content = str_replace( '  ', '&nbsp;&nbsp;' , $content );
-	return str_replace( '\t', '&nbsp;&nbsp;&nbsp;&nbsp;', $content );
-}
 ?>
-<?php
-	if($_POST['id']!="")
-	{
-		$desc=CleanHtmlTags($_POST['desc']);
- 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".$_POST['id'].",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
-		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
-	echo "<script> alert('添加成功！');window.location.href='repairinfo.php'</script>";	
-	}
-	
-?>
+
 <?php include("boot.php");?>
 <style type="text/css">
 		label{
@@ -41,13 +25,13 @@ function CleanHtmlTags( $content )
         
         <div class="header">
             
-            <h1 class="page-title">添加维修记录</h1>
+            <h1 class="page-title">添加仓库记录</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li><a href="staffinfo.php">维修记录</a> <span class="divider">/</span></li>
-            <li class="active">添加维修记录</li>
+            <li><a href="repertoryinfo.php">仓库记录</a> <span class="divider">/</span></li>
+            <li class="active">添加仓库记录</li>
         </ul>
 
         <div class="container-fluid">
@@ -59,25 +43,21 @@ function CleanHtmlTags( $content )
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="repairinfo" method="post">
-        <label>维&nbsp;&nbsp;修&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input type="text" name="id" class="input-xlarge">
+    <form name="repertoryinfo" method="post" action="add_repertoryinfo_ok.php">
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
+        <input type="text" name="repertoryid" class="input-xlarge">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</label>
-        <input type="text" name="date" class="input-xlarge">
+        <label>仓&nbsp;&nbsp;&nbsp;&nbsp;库&nbsp;&nbsp;&nbsp;&nbsp;量</label>
+        <input type="text" name="capacity" class="input-xlarge">
         <br/>
-        <label>花&nbsp;&nbsp;费&nbsp;&nbsp;金&nbsp;&nbsp;&nbsp;额</label>
-        <input type="text" name="cos" class="input-xlarge">
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;面&nbsp;&nbsp;&nbsp;积</label>
+        <input type="text" name="area" class="input-xlarge">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       	<label>负责人工号</label>
         <input type="text" name="staffID" class="input-xlarge">
         <br/>
-        <label>事&nbsp;&nbsp;件&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" rows="5" class="input-xlarge">
-			2817 S 49th
-			Apt 314
-			San Jose, CA 95101
-        </textarea>
+        <label>仓&nbsp;&nbsp;库&nbsp;&nbsp;地&nbsp;&nbsp;&nbsp;址</label>
+        <input type="text" name="position" class="input-xlarge">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -130,9 +110,7 @@ function CleanHtmlTags( $content )
 	{
 		if(!checkform(form))
 			return false;
-		if(!checkdate(repairinfo.date))
-			return false;
-		document.repairinfo.submit();
+		document.repertoryinfo.submit();
 	}
 	</script>
 

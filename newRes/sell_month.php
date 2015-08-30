@@ -20,7 +20,7 @@ if (!isset($_SESSION)) {
 		$page=1;
 	}
 	$page_count=20;
-	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH)");
+	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 1 MONTH)");
 	$row=mysql_num_rows($sql);                  //判断数据的数量
 	$page_page=ceil($row/$page_count);          //判断页数
 	$last_record=($page-1)*$page_count;          //获取上一页的最后一条记录
@@ -66,7 +66,7 @@ function stamp(obj)
                       <th>处理人ID</th>
                   </tr>
                   <?php 
-                        $sqls=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH) limit $last_record,$page_count;");
+                        $sqls=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 1 MONTH) limit $last_record,$page_count;");
                         $array=mysql_fetch_array($sqls);
 					 do{
                   ?>
@@ -92,7 +92,7 @@ function stamp(obj)
                         </ul>
                   </div>
              <?php 
-				$sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH)");
+				$sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 1 MONTH)");
 				$info=mysql_fetch_array($sql1);
 ?>
 			<hr/>
