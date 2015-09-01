@@ -80,6 +80,16 @@ $name=$_FILES[uploadfile][name];
 $location=$ls.$name;
 $query = "insert into food(foodID,foodName,price,foodType,description,imageLocation) values($_POST[id],'$_POST[name]',$_POST[price],'$_POST[type]','$desc','$location');";
 mysql_query($query,$conn) or die(mysql_error());
+
+$ingredients=$_POST[select];
+
+for($i=0;$i<count($ingredients);$i++)
+
+{
+    $insert="insert into foodingredients(foodID,ingredientsID) values($_POST[id],$ingredients[$i])";
+    mysql_query($insert,$conn) or die(mysql_error());
+}
+
 //有url指定的图片创建图片并保存到指定目录
 switch($type)
 {

@@ -1,4 +1,3 @@
-<?php include('boot.php');?>
 <?php include "conn/conn.php";?>
 <?php
 if($_SERVER['REQUEST_METHOD']=="GET")
@@ -12,9 +11,16 @@ else if($_SERVER['REQUEST_METHOD']=="POST")
 {
 	$updatesql="update ingredients set ingredientsID=".$_POST['id'].",ingredientName='".$_POST['name']."',price=".$_POST['price'].",number=".$_POST['number'].",description='".$_POST['desc']."' where ingredientsID='".$_GET['id']."';";
 		$sql = mysql_query($updatesql, $conn) or die(mysql_error());
+  $selectsql1="select * from ingredientrepertory";
+  $query=mysql_query($selectsql1,$conn) or die(mysql_error());
+  while($array=mysql_fetch_array($query)){
+    $updatesql1="update ingredientrepertory set ingredientsID=$_POST[id] where ingredientSID=$_GET[id]";
+    mysql_query($updatesql1,$conn) or die(mysql_error());
+  }
 	echo "<script> alert('修改成功！');window.location.href='ingredientsinfo.php'</script>";
 }
 ?>
+<?php include('boot.php');?>
     <style type="text/css">
 		label{
 			display:inline-block;
@@ -54,7 +60,7 @@ else if($_SERVER['REQUEST_METHOD']=="POST")
         <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量</label>
-        <input name="number" type="text" class="input-xlarge" value="<?php echo $row["number"];?>">
+        <input name="number" type="text" class="input-xlarge" value="<?php echo $row["number"];?>" readonly>
         <br/>
         <label>食&nbsp;&nbsp;材&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
         <textarea name="desc" cols="" rows="5" class="input-xlarge"><?php echo $row["description"];?></textarea>

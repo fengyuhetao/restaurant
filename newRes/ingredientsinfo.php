@@ -5,6 +5,8 @@ if($_GET["id"]!="")
   $id=$_GET["id"];
   $deleteSQL="delete from ingredients where ingredientsID='".$id."'";
   $sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
+  $deleteSQL1="delete form ingredientrepertory where ingredients=$id";
+  mysql_query($deleteSQL1,$conn) or die(mysql_error());
   echo "<script>window.location.href='ingredientsinfo.php';</script>";
 }
 else

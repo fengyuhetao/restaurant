@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="foodinfo" method="post" action="modify_foodinfo.php?id=<?php echo $_GET[id];?>">
+    <form name="foodinfo" method="post" action="modify_foodinfo_ok.php?id=<?php echo $id;?>" enctype="multipart/form-data">
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
         <input name="id" type="text" class="input-xlarge" value="<?php echo $row["foodID"];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD']=="GET")
         <textarea name="desc" cols="" rows="5" class="input-xlarge"><?php echo $row["description"];?></textarea>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
-        <input type="file" name="loadfile"/>
+        <input type="file" name="uploadfile"/>
         <img src="<?php echo $row['imageLocation'];?>" alt="product" height="170" width="170">
       </div>
       <!--<div class="tab-pane fade" id="profile">

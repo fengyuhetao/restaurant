@@ -5,6 +5,8 @@ if($_GET["id"]!="")
 	$id=$_GET["id"];
 	$deleteSQL="delete from repertory where repertoryID='".$id."'";
 	$sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
+  $deleteSQL1="delete from ingredientrepertory where repertoryID=$id";
+  mysql_query($deleteSQL1,$conn) or die(mysql_error());
 	echo "<script>window.location.href='repertoryinfo.php';</script>";
 }
 else
@@ -157,7 +159,7 @@ else
         <h3 id="myModalLabel">提醒</h3>
     </div>
     <div class="modal-body">
-        <p class="error-text"><i class="icon-warning-sign modal-icon"></i>确定要删除此条信息?</p>
+        <p class="error-text"><i class="icon-warning-sign modal-icon"></i>确定要删除此条信息?删除之前请您确保该仓库没有储藏任何东西!!!</p>
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>

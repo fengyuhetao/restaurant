@@ -3,8 +3,19 @@
 if($_GET["id"]!="")
 {
   $id=$_GET["id"];
+  $deleteSQL1="delete from foodingredients where foodID=$id";
+  mysql_query($deleteSQL1,$conn) or die(mysql_error());
+  $selectsql="select * from food where foodID=$id";
+  $select=mysql_query($selectsql,$conn) or die(mysql_error());
+  $array=mysql_fetch_array($select);
+  if($array)
+  {
+    unlink($array[imageLocation]);
+  }
   $deleteSQL="delete from food where foodID='".$id."'";
   $sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
+  $deleteSQL2="delete from menu where foodID=$id";
+  mysql_query($deleteSQL2,$conn) or die(mysql_error());
   echo "<script>window.location.href='foodinfo.php';</script>";
 }
 else

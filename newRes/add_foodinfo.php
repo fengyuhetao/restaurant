@@ -13,7 +13,10 @@ if (!isset($_SESSION)) {
 }
 include "conn/conn.php";
 ?>
-
+<?php
+$select="select * from ingredients";
+$query=mysql_query($select,$conn) or die(mysql_error());
+?>
 <?php include("boot.php");?>
 <style type="text/css">
 		label{
@@ -62,6 +65,17 @@ include "conn/conn.php";
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>选&nbsp;&nbsp;择&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
         <input type="file" name="uploadfile" onchange="load();" id="picture"/>
+        <br/>
+        <label>选&nbsp;&nbsp;择&nbsp;&nbsp;食&nbsp;&nbsp;&nbsp;材:</label>
+        <br/>
+        <?php 
+              while($array=mysql_fetch_array($query)){
+        ?>
+              <input type="checkbox" name="select[]" value="<?php echo $array[ingredientsID];?>">&nbsp;&nbsp;<?php echo $array[ingredientName]?>&nbsp;&nbsp;&nbsp;&nbsp;
+        <?php
+            }
+        ?>
+        
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
