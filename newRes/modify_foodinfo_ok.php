@@ -8,21 +8,24 @@ function CleanHtmlTags( $content )
 	return str_replace( '\t', '&nbsp;&nbsp;&nbsp;&nbsp;', $content );
 }
 ?>
-<?
-$id=$_GET[id];
- $selectsql="select * from food where foodID=$id";
- echo "<br/>";
-  $select=mysql_query($selectsql,$conn) or die(mysql_error());
-  $array=mysql_fetch_array($select);
-  if($array)
-  {
-    unlink($array[imageLocation]);
-  }
+<?php
+$name=$_FILES[uploadfile][name];
+ $id=$_GET[id];
+ if($name!="")
+{ 
+    $selectsql="select * from food where foodID=$id";
+    echo "<br/>";
+    $select=mysql_query($selectsql,$conn) or die(mysql_error());
+    $array=mysql_fetch_array($select);
+    if($array)
+    {
+        unlink($array[imageLocation]);
+    }
+}
  ?>
 <?php 
 //上传文件的路径
 $dir = 'D:\AppServ\www\hetao\newRes\images\food\\';
-echo $dir;
 /*
 $_FILES:用在当需要上传二进制文件的地方,获得该文件的相关信息
 $_FILES['userfile']['name'] 客户端机器文件的原名称。 
@@ -31,8 +34,10 @@ $_FILES['userfile']['size'] 已上传文件的大小，单位为字节
 $_FILES['userfile']['tmp_name'] 文件被上传后在服务端储存的临时文件名,注意不要写成了$_FILES['userfile']['temp_name']很容易写错的，虽然tmp就是代表临时的意思，但是这里用的缩写
 $_FILES['userfile']['error'] 和该文件上传相关的错误代码。['error'] 
 */
-if($_FILES['uploadfile']['error'] != UPLOAD_ERR_OK)
+if($name!="")
 {
+    if($_FILES['uploadfile']['error'] != UPLOAD_ERR_OK)
+    {
     switch($_FILES['uploadfile']['error'])
     {
         case UPLOAD_ERR_INI_SIZE: //其值为 1，上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值
@@ -57,6 +62,7 @@ if($_FILES['uploadfile']['error'] != UPLOAD_ERR_OK)
             die('File upload stopped by extension.');
         break;
     }
+    }
 }
 /*getimagesize方法返回一个数组，
 $width : 索引 0 包含图像宽度的像素值，
@@ -67,12 +73,13 @@ $type : 索引 2 是图像类型的标记：
 = JPC，10 = JP2，11 = JPX，12 = JB2，13 = SWC，14 = IFF，15 = WBMP，16 = XBM，
 $attr : 索引 3 是文本字符串，内容为“height="yyy" width="xxx"”，可直接用于 IMG 标记
 */
-
-list($width,$height,$type,$attr) = getimagesize($_FILES['uploadfile']['tmp_name']);
+if($name!="")
+{
+    list($width,$height,$type,$attr) = getimagesize($_FILES['uploadfile']['tmp_name']);
 
 //imagecreatefromgXXX方法从一个url路径中创建一个新的图片
-switch($type)
-{
+    switch($type)
+    {
     case IMAGETYPE_GIF:
         $image = imagecreatefromgif($_FILES['uploadfile']['tmp_name']) or die('The file you upload was not supported filetype');
     break;
@@ -84,16 +91,27 @@ switch($type)
     break;    
     default    :
         die('The file you uploaded was not a supported filetype.');
+    }
 }
 $desc=CleanHtmlTags($_POST['desc']);
 $ls="images/food/";
-$name=$_FILES[uploadfile][name];
 $location=$ls.$name;
-$query = "update food set foodID=$_POST[id],foodName='$_POST[name]',price=$_POST[price],foodType='$_POST[type]',description='$desc',imageLocation='$location' where foodID=$id";
-mysql_query($query,$conn) or die(mysql_error());
-//有url指定的图片创建图片并保存到指定目录
-switch($type)
+if($name=="")
 {
+    $query = "update food set foodID=$_POST[id],foodName='$_POST[name]',price=$_POST[price],foodType='$_POST[type]',description='$desc' where foodID=$id";
+    mysql_query($query,$conn) or die(mysql_error());
+}
+else
+   {
+    $query = "update food set foodID=$_POST[id],foodName='$_POST[name]',price=$_POST[price],foodType='$_POST[type]',description='$desc',imageLocation='$location' where foodID=$id";
+    mysql_query($query,$conn) or die(mysql_error());
+}
+
+//有url指定的图片创建图片并保存到指定目录
+if($name!="")
+{
+    switch($type)
+    {
     case IMAGETYPE_GIF:
         imagegif($image,$dir.$name);
     break;
@@ -103,9 +121,10 @@ switch($type)
     case IMAGETYPE_PNG:
         imagepng($image,$dir.$name);
     break;
+    }
+    //销毁由url生成的图片
+    imagedestroy($image);
 }
-//销毁由url生成的图片
-imagedestroy($image);
 echo "<script> alert('修改成功！');window.location.href='foodinfo.php'</script>";	
 ?>
 

@@ -23,6 +23,25 @@ if (!isset($_SESSION)) {
 		$i++;
 	}
 	$data=json_encode($arr);
+    $arr1=array();
+    $m=1;
+    while($m<31)
+    {
+        $sqlselect=mysql_query("select purchaseID from purchase WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL $m DAY)") or die(mysql_error());
+        if($array=mysql_fetch_array($sqlselect)){
+            while($array){
+                $selectsql=mysql_query("select sum(number*price) as totalprice from ingredientpurchase where purchaseID=$array[purchaseID]") or die(mysql_error());
+                if($selectquery=mysql_fetch_array($selectsql)){
+                    array_push($arr1,intval($selectquery['totalprice']));
+                $array=mysql_fetch_array($sqlselect);
+                }
+            }
+        }
+        else
+            array_push($arr1,0);
+        $m++;
+    }
+    $data1=json_encode($arr1);
  ?>
 <!doctype html>
 <html>
@@ -58,7 +77,7 @@ function Resize(oframe,obody){
 $(function () {
  	    $('#chart_pie').highcharts({
         title: {
-            text: '月销售额',
+            text: '财务统计表',
             x: -20 //center
         },
         subtitle: {
@@ -70,7 +89,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: '总销售额'
+                text: '财务统计表'
             },
             plotLines: [{
                 value: 0,
@@ -88,8 +107,11 @@ $(function () {
             borderWidth: 0
         },
         series: [{
-            name: '月销售额',
+            name: '销售额',
             data: <?php echo $data; ?>
+        },{
+            name: '采购额',
+            data: <?php echo $data1; ?>
         }]
     });
 });

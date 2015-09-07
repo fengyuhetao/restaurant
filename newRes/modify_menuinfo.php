@@ -1,42 +1,32 @@
-<?php include "conn/conn.php";?>
+<?php include('conn/conn.php');?>
 <?php
+$id="";
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
 	$id=$_GET["id"];
-	$selectsql="select * from food where foodID='".$id."'";
+	$selectsql="select * from food where foodID=".$id."";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
-  $selectsql1="select food.foodID,ingredients.ingredientName as ingredientName from food left join foodingredients on food.foodID=foodingredients.foodID LEFT JOIN ingredients on foodingredients.ingredientsID=ingredients.ingredientsID WHERE food.foodID=$id";
-  $sql1=mysql_query($selectsql1,$conn) or die(mysql_error());
 }
 ?>
-
-    <?php include('boot.php');?>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-
-    <script src="lib/jquery-1.7.2.min.js" type="text/javascript"></script>
-
-    <!-- Demo page code -->
-
-     <style type="text/css">
-    label{
-      display:inline-block;
-    }<!--自己加的-->
+<?php include('boot.php');?>
+    <style type="text/css">
+		label{
+			display:inline-block;
+		}<!--自己加的-->
     </style>
+    
     <div class="content">
         
         <div class="header">
             
-            <h1 class="page-title">查看菜品记录</h1>
+            <h1 class="page-title">修改菜品信息</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li><a href="foodinfo.php">菜品管理</a> <span class="divider">/</span></li>
-            <li class="active">查看食品信息</li>
+            <li><a href="repertoryinfo.php">菜品管理</a> <span class="divider">/</span></li>
+            <li class="active">修改菜品信息</li>
         </ul>
 
         <div class="container-fluid">
@@ -48,31 +38,35 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="foodinfo">
+    <form name="foodinfo" method="post" action="modify_menuinfo_ok.php?id=<?php echo $id;?>" enctype="multipart/form-data">
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
         <input name="id" type="text" class="input-xlarge" value="<?php echo $row["foodID"];?>" readonly>
-        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称</label>
         <input name="name" type="text" class="input-xlarge" value="<?php echo $row["foodName"];?>" readonly>
         <br/>
         <label>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</label>
-        <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>" readonly>
-        <br/>
-      	<label>种&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类</label>
-        <input name="number" type="text" class="input-xlarge" value="<?php echo $row["foodType"];?>" readonly>
+        <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>" readonly/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label>种&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类</label>
+        <input name="number" type="text" class="input-xlarge" value="<?php echo $row["foodType"];?>" readonly/>
         <br/>
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" cols="" rows="5" readonly class="input-xlarge"><?php echo $row["description"];?></textarea>
-        <br/>
+        <textarea name="desc" cols="" rows="5" class="input-xlarge" readonly><?php echo $row["description"];?></textarea>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
         <img src="<?php echo $row['imageLocation'];?>" alt="product" height="170" width="170">
         <br/>
-        <br/>
-        <label>必&nbsp;&nbsp;要&nbsp;&nbsp;食&nbsp;&nbsp;&nbsp;材:</label><br/>
-        <?php 
-            while($array=mysql_fetch_array($sql1)){
-        ?>
-        <input type="text" class="input-xlarge" value="<?php echo $array[ingredientName];?>" readonly/><br/>
+        <label>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</label>
+        <?php
+            $select="select state from menu where foodID=$id";
+            $sql1=mysql_query($select,$conn) or die(mysql_error());
+            $array=mysql_fetch_array($sql1); 
+            if($array){
+          ?>
+        <input name="state" type="text" maxlength="1" title="请填写有或无" class="input-xlarge" value="<?php if($array[state]==1) echo "有"; else echo "无";?>"/>
+        <?php } else { ?>
+        <input name="state" type="text" maxlength="1" class="input-xlarge" value="<?php echo "无";?>"/>
         <?php } ?>
       </div>
       <!--<div class="tab-pane fade" id="profile">
@@ -85,15 +79,15 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </form>
       </div>-->
   </div>
-</form>
+
 </div>
 <div class="btn-toolbar">
-    <button class="btn btn-primary" onClick="Return()"><i class="icon-home"></i> 返回</button>
+    <button class="btn btn-primary" onClick="return TianJia(form)" value=" "><i class="icon-save"></i> 保存</button>
    <!-- <a href="#myModal" data-toggle="modal" class="btn">Delete</a>-->
   <div class="btn-group">
   </div>
 </div>
-
+</form>
 <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -120,10 +114,20 @@ if($_SERVER['REQUEST_METHOD']=="GET")
         </div>
     </div>
     
+
+
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+        $(function() {
+            $('.demo-cancel-click').click(function(){return false;});
+        });
+    </script>
+    <script type="text/javascript" src="js/check.js"></script>
     <script>
-	function Return()
+	function TianJia(form)
 	{
-		window.location.href="foodinfo.php";
+		document.foodinfo.submit();
 	}
 	</script>
   </body>

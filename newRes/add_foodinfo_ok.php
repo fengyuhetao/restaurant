@@ -11,7 +11,6 @@ function CleanHtmlTags( $content )
 <?php 
 //上传文件的路径
 $dir = 'D:\AppServ\www\hetao\newRes\images\food\\';
-echo $dir;
 /*
 $_FILES:用在当需要上传二进制文件的地方,获得该文件的相关信息
 $_FILES['userfile']['name'] 客户端机器文件的原名称。 
@@ -83,11 +82,13 @@ mysql_query($query,$conn) or die(mysql_error());
 
 $ingredients=$_POST[select];
 
-for($i=0;$i<count($ingredients);$i++)
-
+if(count($ingredients)!=0)
 {
-    $insert="insert into foodingredients(foodID,ingredientsID) values($_POST[id],$ingredients[$i])";
-    mysql_query($insert,$conn) or die(mysql_error());
+    for($i=0;$i<count($ingredients);$i++)
+    {
+       $insert="insert into foodingredients(foodID,ingredientsID) values($_POST[id],$ingredients[$i])";
+       mysql_query($insert,$conn) or die(mysql_error());
+    }
 }
 
 //有url指定的图片创建图片并保存到指定目录

@@ -1,27 +1,12 @@
 <?php include('boot.php');?>
 <?php require_once('conn/conn.php');
-if($_GET["id"]!="")
-{
-  $id=$_GET["id"];
-  $deleteSQL="delete from ingredients where ingredientsID='".$id."'";
-  $sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
-  $deleteSQL1="delete form ingredientrepertory where ingredientsID=$id";
-  mysql_query($deleteSQL1,$conn) or die(mysql_error());
-  echo "<script>window.location.href='ingredientsinfo.php';</script>";
-}
-else
-{
-  $currentPage = "ingredientsinfo.php";
-  $maxRows = 20;
-  $pageNum = 0;
+  $currentPage = "menuinfo.php";
   if (isset($_GET['pageNum'])) {
     $pageNum = $_GET['pageNum'];
   }
-  $startRow = $pageNum * $maxRows;
   
-  $query = "select * from ingredients";
-  $query_limit = sprintf("%s limit %d, %d", $query, $startRow, $maxRows);
-  $sql = mysql_query($query_limit, $conn) or die(mysql_error());
+  $query = "select * from food";
+  $sql = mysql_query($query, $conn) or die(mysql_error());
   $row = mysql_fetch_assoc($sql);
   
   if (isset($_GET['totalRows'])) {
@@ -30,8 +15,6 @@ else
     $all = mysql_query($query);
     $totalRows = mysql_num_rows($all);
   }
-  $totalPages = ceil($totalRows/$maxRows)-1;
-}
 ?>
     
 
@@ -40,29 +23,31 @@ else
         
         <div class="header">
             
-            <h1 class="page-title">食材管理</h1>
+            <h1 class="page-title">菜单管理</h1>
         </div>
         
         <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li class="active">食材管理</li>
+            <li class="active">菜单管理</li>
         </ul>
 
         <div class="container-fluid">
             <div class="row-fluid">
 <div class="header">
-  <label>共有<strong><?php echo $totalRows ?></strong> 条记录，目前显示第<strong><?php echo ($startRow + 1) ?></strong>条至第<strong><?php echo min($startRow + $maxRows, $totalRows) ?></strong>条
+  <label>共有<strong><?php echo $totalRows ?></strong> 条记录，目前显示第<strong>1</strong>条至第<strong><?php echo $totalRows ?></strong>条
     </label>
 </div>
 <div class="well">
     <table class="table">
       <thead>
         <tr>
-          <th>食材编号</th>
-          <th>食材名称</th>
+          <th style="width:20px;"></th>
+          <th>菜品编号</th>
+          <th>菜品名称</th>
           <th>价格</th>
-          <th>数量</th>
+          <th>种类</th>
           <th>描述</th>
+          <th>状态</th>
           <th style="width: 45px;"></th>
         </tr>
       </thead>
@@ -72,15 +57,25 @@ else
       ?>
           <?php if ($totalRows > 0) { // Show if recordset not empty ?>
         <tr>
-          <td><?php echo $row['ingredientsID'];?></td>
-          <td><?php echo $row['ingredientName'];?></td>
+          <?php
+            $select="select state from menu where foodID=$row[foodID]";
+            $sql1=mysql_query($select,$conn) or die(mysql_error());
+            $array=mysql_fetch_array($sql1); 
+            if($array){
+          ?>
+          <td><input type="checkbox" name="select" value="<?php if($array[state]==1) echo $row['foodID']." 1";else echo $row['foodID']."0";?>" checked/></td>
+          <?php } else {?>
+          <td><input type="checkbox" name="select" value="<?php echo $row['foodID']." 0";?>"/></td>
+          <?php } ?>
+          <td><?php echo $row['foodID'];?></td>
+          <td><?php echo $row['foodName'];?></td>
           <td><?php echo $row['price'];?></td>
-          <td><?php echo $row['number'];?></td>
+          <td><?php echo $row['foodType'];?></td>
           <td><?php echo mb_strlen($row['description'])>25?mb_substr($row['description'],0,25,"utf-8")."...":$row['description'];?></td>
+          <td><?php if($array) { if($array[state]==1) echo "有";else echo "无";} else {echo "无";}?></td>
           <td>
-              <a href="show_ingredientsinfo.php?id=<?php echo $row['ingredientsID'];?>"><i class="icon-list"></i></a>
-              <a href="modify_ingredientsinfo.php?id=<?php echo $row['ingredientsID'];?>"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i id="<?php echo $row['ingredientsID'];?>" onClick="PassID(this)" class="icon-remove"></i></a>
+              <a href="show_foodinfo.php?id=<?php echo $row['foodID'];?>"><i class="icon-list"></i></a>
+              <a href="modify_menuinfo.php?id=<?php echo $row['foodID'];?>"><i class="icon-pencil"></i></a>
           </td>
         </tr>
        <?php } // Show if recordset not empty ?>
@@ -139,7 +134,8 @@ else
     </table>
 </div>
 <div class="pagination">
-    <button class="btn btn-primary" onClick="GoToTianJia()"><i class="icon-plus"></i>添加</button>
+    <div class="form-inline"><button class="btn" type="button">处理者ID</button>
+<input class="input-xlarge" type="text" style="height:30px;" id="dealid"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-primary" data-toggle="modal" onClick="deal();"><i class="icon-save"></i>保存</a>
     <ul style="float:right"><!--自己加的右漂移-->
       <!--  <li><a href="#">Prev</a></li>
         <li><a href="#">1</a></li>
@@ -147,10 +143,6 @@ else
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
         <li><a href="#">Next</a></li>-->
-        <li><a href="<?php printf("%s?pageNum=%d", $currentPage, 0); ?>">第一页</a></li>
-        <li><a href="<?php printf("%s?pageNum=%d", $currentPage, max(0, $pageNum - 1)); ?>">上一页</a></li>
-        <li><a href="<?php printf("%s?pageNum=%d", $currentPage, min($totalPages, $pageNum + 1)); ?>">下一页</a></li>
-        <li><a href="<?php printf("%s?pageNum=%d", $currentPage, $totalPages); ?>">最后一页</a></li>
     </ul>
 </div>
 
@@ -179,21 +171,31 @@ else
         </div>
     </div>
     <!--自定义的js-->
-    <script>
-    function GoToTianJia(){
-      window.location.href="add_ingredientsinfo.php";
-    }
-    var ingredientsid;
-    function PassID(obj){
-      ingredientsid=obj.id;
-    }
-    function Del(){
-      //alert(staffid);
-      window.location.href="ingredientsinfo.php?id="+ingredientsid;
-    }
-  </script>
   </body>
 </html>
+<script>
+function deal(){
+    var dealid=document.getElementById('dealid');
+    if(dealid.value=="")
+    {
+       alert("请输入ID");
+    }
+    else
+    {
+		  var aid="";
+		  var i=0;
+		  var aCb=document.getElementsByName('select');
+		  for(i=0;i<aCb.length;i++)
+	   	{
+			  if(aCb[i].checked)
+			  {
+				   aid=aid+aCb[i].value+" ";
+			  }
+		  }
+          window.location.href='menu_deal.php?aid='+aid+'&staffid='+dealid.value;
+    }
+  }
+</script>
 <?php
 mysql_free_result($sql);
 ?>

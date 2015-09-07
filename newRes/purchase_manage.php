@@ -20,7 +20,7 @@ include("conn/conn.php");?>
 		$page=1;
 	}
 	$page_count=20;
-	$sql=mysql_query("SELECT IngredientRepertory.ingredientsID,IngredientRepertory.repertoryID,IngredientRepertory.number,INGREDIENTS.ingredientName, ingredients.price FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID
+	$sql=mysql_query("select ingredients.ingredientName,ingredients.price,ingredientrepertory.ingredientsID,sum(ingredientrepertory.number) as number  from ingredients left join ingredientrepertory on ingredientrepertory.ingredientsID=ingredients.ingredientsID group by ingredientsID
  ");
 	$row=mysql_num_rows($sql);                  //判断数据的数量
 	$page_page=ceil($row/$page_count);          //判断页数
@@ -50,7 +50,6 @@ include("conn/conn.php");?>
             <div class="well" id="purchase">
               <table class="table" id="table3">
                  <tr align="center" valign="middle">
-                   <th>仓库ID</th>
                    <th>食材ID</th>
                    <th>食材名</th>
                    <th>数量</th>
@@ -58,13 +57,11 @@ include("conn/conn.php");?>
                    <th>操作</th>
                 </tr>
               <?php 
-                  $sqls=mysql_query("SELECT IngredientRepertory.ingredientsID,IngredientRepertory.repertoryID,IngredientRepertory.number,INGREDIENTS.ingredientName, ingredients.price FROM IngredientRepertory INNER JOIN INGREDIENTS ON IngredientRepertory.ingredientsID = INGREDIENTS.ingredientsID  limit $last_record,$page_count
+                  $sqls=mysql_query("select ingredients.ingredientName,ingredients.price,ingredientrepertory.ingredientsID,sum(ingredientrepertory.number) as number  from ingredients left join ingredientrepertory on ingredientrepertory.ingredientsID=ingredients.ingredientsID group by ingredientsID  limit $last_record,$page_count
                   ");
-                $array=mysql_fetch_array($sqls);
-             do{
+               while($array=mysql_fetch_array($sqls)){
               ?>        <!-- 输出数据-->
             <tr>
-                 <td><?php echo $array['repertoryID'];?></td>
                  <td><?php echo $array['ingredientsID'];?></td>
                  <td><?php echo $array['ingredientName'];?></td>
                  <td><?php echo $array['number'];?></td>
@@ -74,7 +71,7 @@ include("conn/conn.php");?>
                  </td>
             </tr>
           <?php 
-          }while($array=mysql_fetch_array($sqls));
+          }
         ?>
           </table>
           </div>

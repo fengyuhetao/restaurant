@@ -4,7 +4,7 @@ $id="";
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
 	$id=$_GET["id"];
-	$selectsql="select * from food where foodID=$id";
+	$selectsql="select * from seat where seatID=".$id."";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
 }
@@ -20,13 +20,13 @@ if($_SERVER['REQUEST_METHOD']=="GET")
         
         <div class="header">
             
-            <h1 class="page-title">修改菜品信息</h1>
+            <h1 class="page-title">修改座位信息</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li><a href="repertoryinfo.php">菜品管理</a> <span class="divider">/</span></li>
-            <li class="active">修改菜品信息</li>
+            <li><a href="repertoryinfo.php">座位管理</a> <span class="divider">/</span></li>
+            <li class="active">修改座位信息</li>
         </ul>
 
         <div class="container-fluid">
@@ -38,25 +38,21 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="foodinfo" method="post" action="modify_foodinfo_ok.php?id=<?php echo $id;?>" enctype="multipart/form-data">
-        <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input name="id" type="text" class="input-xlarge" value="<?php echo $row["foodID"];?>">
+    <form name="seatinfo" method="post" action="modify_seatinfo_ok.php?id=<?php echo $_GET[id];?>">
+        <label>座&nbsp;&nbsp;位&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
+        <input type="text" name="seatid" class="input-xlarge" value="<?php echo $row[seatID];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称</label>
-        <input name="name" type="text" class="input-xlarge" value="<?php echo $row["foodName"];?>">
+        <label>桌&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
+        <input type="text" name="number" class="input-xlarge" value="<?php echo $row[number];?>">
         <br/>
-        <label>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</label>
-        <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>">
+        <label>容&nbsp;&nbsp;纳&nbsp;&nbsp;人&nbsp;&nbsp;&nbsp;数</label>
+        <input type="text" name="capacity" class="input-xlarge" value="<?php echo $row[capacity];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>种&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类</label>
-        <input name="type" type="text" class="input-xlarge" value="<?php echo $row["foodType"];?>">
+         <label>座&nbsp;&nbsp;位&nbsp;&nbsp;位&nbsp;&nbsp;&nbsp;置</label>
+        <input type="text" name="seatDirection" class="input-xlarge" value="<?php echo $row[seatDirection];?>">
         <br/>
-        <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" cols="" rows="5" class="input-xlarge"><?php echo $row["description"];?></textarea>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>菜&nbsp;&nbsp;品&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
-        <input type="file" name="uploadfile"/>
-        <img src="<?php echo $row['imageLocation'];?>" alt="product" height="170" width="170">
+        <label>座&nbsp;&nbsp;位&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态</label>
+        <input type="text" name="seatState" class="input-xlarge" value="<?php  if($row[seatState]==1) echo "有人";else echo "无人";?>"  title="请填写有人或无人">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -104,19 +100,13 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </div>
     
 
-
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-    </script>
     <script type="text/javascript" src="js/check.js"></script>
     <script>
 	function TianJia(form)
 	{
-		document.foodinfo.submit();
+		if(!checkform(form))
+			return false;
+		document.seatinfo.submit();
 	}
 	</script>
   </body>

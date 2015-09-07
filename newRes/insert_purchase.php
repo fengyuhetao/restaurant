@@ -13,6 +13,7 @@ if (!isset($_SESSION)) {
 }
 include("conn/conn.php"); ?>
   <?php 
+  $purchase=0;
    if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
             $page=$_GET['page'];
         }
@@ -59,6 +60,7 @@ include("conn/conn.php"); ?>
                             <?php 
                                   $sqls=mysql_query("select * from ingredientpurchasetemp");
                                   $array=mysql_fetch_array($sqls);
+                                  $purchase=$array[purchaseIDtemp];
                                   do{
                             ?>        <!-- 输出数据-->
                             <tr>
@@ -78,7 +80,8 @@ include("conn/conn.php"); ?>
                             </div>      
                                 
                             <div class="pagination" >
-                            <a href="#dealModal" class="btn btn-primary" data-toggle="modal"><i class="icon-save"></i>处理</a>
+<div class="form-inline"><button class="btn" type="button">处理者ID</button>
+<input class="input-xlarge" type="text" style="height:30px;" id="dealid"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dealModal" class="btn btn-primary" data-toggle="modal"><i class="icon-save"></i>处理</a>
 
                           	                    <ul style="float:right;">
                                                   <li><a href="insert_purchase.php?page=1">首页</a> </li>
@@ -119,7 +122,7 @@ include("conn/conn.php"); ?>
                         </div>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-                            <button class="btn btn-danger" data-dismiss="modal" id="deal" onclick="deal();">确定</button>
+                            <button class="btn btn-danger" data-dismiss="modal" id="deal" onclick="deal(<?php echo $purchase;?>);">确定</button>
                         </div>
                     </div>
                      <footer>
@@ -144,20 +147,35 @@ include("conn/conn.php"); ?>
       window.location.href="purchase_delete_info.php?ingredientsID="+ingredientsid+"&purchaseID="+purchaseid;
     }
 	
-	function deal(){
+	function deal(purchase){
 		var aRadio=document.getElementsByName('address');
 		var address;
 		var panduan=0;
-		for(var i=0;i<aRadio.length;i++)
+    for(var i=0;i<aRadio.length;i++)
 			if(aRadio[i].checked)
 			{
 				panduan=1;
 				address=aRadio[i].value;
 			}
-		if(panduan==1)
-			window.location.href="deal.php?repertoryID="+address;
+	  if(panduan==1)
+    { 
+      var dealid=document.getElementById('dealid');
+
+      if(dealid.value=="")
+      {
+       alert("请输入ID");
+      }
+      else
+		  { 
+        alert(1);
+        alert(address);
+        alert(dealid.value);
+        alert(purchase);
+        window.location.href='deal.php?repertoryID='+address+'&dealid='+dealid.value+'&purchaseid='+purchase;
+      }
+    }
 		else 
-			alert("请选择仓库");
+			 alert("请选择仓库");
 	}
     function stamp(obj)
     {

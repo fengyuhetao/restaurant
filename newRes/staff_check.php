@@ -84,6 +84,7 @@ function stamp(obj)
                   </table>
               </div>
               <div class="pagination" >
+              <button class="btn btn-primary" onClick="GoToTianJia()"><i class="icon-plus"></i>添加</button>
                         <ul style="float:right;">
                       	    <li><a href="staff_check.php?page=1">首页</a></li>
                             <li><a href="staff_check.php?page=<?php if($page==1){echo $page=1; }else{ echo $page-1; }?>">上一页</a></li>
@@ -183,5 +184,8 @@ function stamp(obj)
     			}
 			}
   		}
+	}
+	function GoToTianJia(){
+		window.parent.location.href="add_staffcheckinfo.php";
 	}
 </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>菜篮子</title>
+<title>前台</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -141,7 +141,7 @@
             		
             		  <div class="input-append input-prepend span1">
                       <span type="button" id="addButton_<?php echo $array['foodID'];?>" onclick="addClick('<?php echo $array['foodID'];?>');" class="add-on btn">+</span>
-                        <input readonly="readonly" value="0" id="quantityNum_<?php echo $array['foodID'];?>" name="quantityNum" class="span1" type="text" />
+                        <input readonly="readonly" value="0" id="quantityNum_<?php echo $array['foodID'];?>" name="quantityNum_<?php echo $array['foodID'];?>" class="span1" type="text" />
                        <span type="button" id="reductionButton_<?php echo $array['foodID'];?>" onclick="reductionClick('<?php echo $array['foodID'];?>');" class="add-on btn">-</span>
                 </div>
             
@@ -234,6 +234,7 @@ function checkCart()
   var tempAllprice = Number((document.getElementById("allPrice")).innerHTML);
   data["总价"]= tempAllprice;
   data["菜数"]=table.rows.length -1;
+  alert(data["桌号"]+data["总价"]);
 
 
   $.post("success.php",data,function(){

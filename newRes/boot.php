@@ -147,6 +147,8 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
         <ul id="legal-menu" class="nav nav-list collapse">
             <li ><a href="repairinfo.php">维修记录</a></li>
             <li ><a href="repertoryinfo.php">仓库管理</a></li>
+            <li ><a href="menuinfo.php">菜单管理</a></li>
+            <li ><a href="seatinfo.php">座位管理</a></li>
             <!--<li ><a href="terms-and-conditions.html">Terms and Conditions</a></li>-->
         </ul>
 

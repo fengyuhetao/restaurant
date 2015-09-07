@@ -9,7 +9,7 @@
         
                 <ul class="breadcrumb">
             <li><a href="financial_staff.php">员工统计</a> <span class="divider">/</span></li>
-            <li><a href="staff_salary">员工薪资</a> <span class="divider">/</span></li>
+            <li><a href="financial_staff.php">员工薪资</a> <span class="divider">/</span></li>
         </ul>
 
         <div class="container-fluid">
@@ -17,7 +17,7 @@
    
                 <div class="well">
                     <ul class="nav nav-tabs">
-                      <li class="active">Profile</li>
+
                     </ul>
                     <div id="myTabContent" class="tab-content">
                       <div class="tab-pane active in" id="home">

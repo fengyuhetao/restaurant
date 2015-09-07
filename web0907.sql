@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2015-08-25 19:01:49
+Date: 2015-09-07 18:30:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,8 +24,9 @@ CREATE TABLE `bill` (
   `seatID` bigint(20) NOT NULL,
   `allPrice` float(20,2) NOT NULL,
   `date` date NOT NULL,
-  `dealTF` int(1) NOT NULL,
-  `staffID` bigint(20) NOT NULL,
+  `dealTF` int(1) default NULL,
+  `staffID` bigint(20) default NULL,
+  `isNew` bigint(1) NOT NULL,
   PRIMARY KEY  (`billID`),
   KEY `FK_Reference_8` (`seatID`),
   KEY `FK_Reference_9` (`staffID`),
@@ -36,7 +37,8 @@ CREATE TABLE `bill` (
 -- ----------------------------
 -- Records of bill
 -- ----------------------------
-INSERT INTO `bill` VALUES ('1', '1', '200.00', '2015-05-25', '1', '1');
+INSERT INTO `bill` VALUES ('1', '2', '130.00', '2015-09-06', null, null, '0');
+INSERT INTO `bill` VALUES ('2', '3', '40.00', '2015-09-06', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `billfood`
@@ -53,12 +55,9 @@ CREATE TABLE `billfood` (
 -- ----------------------------
 -- Records of billfood
 -- ----------------------------
-INSERT INTO `billfood` VALUES ('1', '1', '1', '10.00');
-INSERT INTO `billfood` VALUES ('1', '2', '1', '11.00');
-INSERT INTO `billfood` VALUES ('1', '3', '1', '2.00');
-INSERT INTO `billfood` VALUES ('1', '4', '2', '36.00');
-INSERT INTO `billfood` VALUES ('1', '5', '1', '17.00');
-INSERT INTO `billfood` VALUES ('1', '6', '1', '15.00');
+INSERT INTO `billfood` VALUES ('1', '1', '2', '20.00');
+INSERT INTO `billfood` VALUES ('1', '2', '3', '30.00');
+INSERT INTO `billfood` VALUES ('2', '1', '2', '20.00');
 
 -- ----------------------------
 -- Table structure for `checkwork`
@@ -94,19 +93,15 @@ CREATE TABLE `food` (
 -- ----------------------------
 -- Records of food
 -- ----------------------------
-INSERT INTO `food` VALUES ('1', '酸辣土豆丝', '10.00', '川菜', '辣', 'images/food/tudousi.jpg');
-INSERT INTO `food` VALUES ('2', '炒牛肉', '11.00', '川菜', '辣', 'images/food/chaoniurou.jpg');
-INSERT INTO `food` VALUES ('3', '炒青菜', '2.00', '川菜', '不辣', 'images/food/qingcai.jpg');
-INSERT INTO `food` VALUES ('4', '酸辣鲤鱼', '18.00', '川菜', '微辣', 'images/food/liyu.jpg');
-INSERT INTO `food` VALUES ('5', '酸辣鲫鱼', '17.00', '川菜', '微辣', 'images/food/jiyu.jpg');
-INSERT INTO `food` VALUES ('6', '酸辣草鱼', '15.00', ' 川菜', '微辣', 'images/food/caoyu.jpg');
+INSERT INTO `food` VALUES ('1', '红烧草鱼', '20.00', '鱼', '红烧草鱼', 'images/food/caoyu.jpg');
+INSERT INTO `food` VALUES ('2', '红烧鲤鱼', '30.00', '鲤鱼', '鲤鱼', 'images/food/liyu.jpg');
 
 -- ----------------------------
 -- Table structure for `foodingredients`
 -- ----------------------------
 DROP TABLE IF EXISTS `foodingredients`;
 CREATE TABLE `foodingredients` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL auto_increment,
   `foodID` bigint(20) NOT NULL,
   `ingredientsID` bigint(20) NOT NULL,
   PRIMARY KEY  (`id`),
@@ -114,21 +109,13 @@ CREATE TABLE `foodingredients` (
   KEY `FK_Reference_13` (`ingredientsID`),
   CONSTRAINT `FK_Reference_10` FOREIGN KEY (`foodID`) REFERENCES `food` (`foodID`),
   CONSTRAINT `FK_Reference_13` FOREIGN KEY (`ingredientsID`) REFERENCES `ingredients` (`ingredientsID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of foodingredients
 -- ----------------------------
 INSERT INTO `foodingredients` VALUES ('1', '1', '1');
-INSERT INTO `foodingredients` VALUES ('2', '1', '2');
-INSERT INTO `foodingredients` VALUES ('3', '2', '2');
-INSERT INTO `foodingredients` VALUES ('4', '3', '3');
-INSERT INTO `foodingredients` VALUES ('5', '4', '2');
-INSERT INTO `foodingredients` VALUES ('6', '4', '4');
-INSERT INTO `foodingredients` VALUES ('7', '5', '2');
-INSERT INTO `foodingredients` VALUES ('8', '5', '5');
-INSERT INTO `foodingredients` VALUES ('9', '6', '2');
-INSERT INTO `foodingredients` VALUES ('10', '6', '6');
+INSERT INTO `foodingredients` VALUES ('2', '2', '3');
 
 -- ----------------------------
 -- Table structure for `ingredientpurchase`
@@ -145,18 +132,6 @@ CREATE TABLE `ingredientpurchase` (
 -- ----------------------------
 -- Records of ingredientpurchase
 -- ----------------------------
-INSERT INTO `ingredientpurchase` VALUES ('1', '1', '10', '3');
-INSERT INTO `ingredientpurchase` VALUES ('1', '123', '234', '3');
-INSERT INTO `ingredientpurchase` VALUES ('1', '1234', '10', '3');
-INSERT INTO `ingredientpurchase` VALUES ('2', '1', '10', '10');
-INSERT INTO `ingredientpurchase` VALUES ('3', '1', '10', '1');
-INSERT INTO `ingredientpurchase` VALUES ('4', '1', '10', '15');
-INSERT INTO `ingredientpurchase` VALUES ('5', '1', '10', '18');
-INSERT INTO `ingredientpurchase` VALUES ('6', '1', '10', '7');
-INSERT INTO `ingredientpurchase` VALUES ('7', '1', '10', '2');
-INSERT INTO `ingredientpurchase` VALUES ('8', '1', '10', '1');
-INSERT INTO `ingredientpurchase` VALUES ('9', '1', '10', '100');
-INSERT INTO `ingredientpurchase` VALUES ('10', '1', '10', '30');
 
 -- ----------------------------
 -- Table structure for `ingredientpurchasetemp`
@@ -173,7 +148,7 @@ CREATE TABLE `ingredientpurchasetemp` (
 -- ----------------------------
 -- Records of ingredientpurchasetemp
 -- ----------------------------
-INSERT INTO `ingredientpurchasetemp` VALUES ('1', '1234', '10', '3');
+INSERT INTO `ingredientpurchasetemp` VALUES ('1', '67', '878', '25');
 
 -- ----------------------------
 -- Table structure for `ingredientrepertory`
@@ -189,16 +164,24 @@ CREATE TABLE `ingredientrepertory` (
 -- ----------------------------
 -- Records of ingredientrepertory
 -- ----------------------------
-INSERT INTO `ingredientrepertory` VALUES ('1', '1', '20');
-INSERT INTO `ingredientrepertory` VALUES ('2', '1', '10');
-INSERT INTO `ingredientrepertory` VALUES ('2', '2', '10');
-INSERT INTO `ingredientrepertory` VALUES ('4', '2', '20');
-INSERT INTO `ingredientrepertory` VALUES ('5', '2', '30');
-INSERT INTO `ingredientrepertory` VALUES ('6', '3', '10');
-INSERT INTO `ingredientrepertory` VALUES ('7', '3', '100');
-INSERT INTO `ingredientrepertory` VALUES ('8', '4', '11');
-INSERT INTO `ingredientrepertory` VALUES ('9', '5', '12');
-INSERT INTO `ingredientrepertory` VALUES ('10', '1', '10');
+INSERT INTO `ingredientrepertory` VALUES ('1', '1', '22');
+INSERT INTO `ingredientrepertory` VALUES ('1', '2', '0');
+INSERT INTO `ingredientrepertory` VALUES ('1', '3', '0');
+INSERT INTO `ingredientrepertory` VALUES ('2', '1', '1.23412e+007');
+INSERT INTO `ingredientrepertory` VALUES ('2', '2', '0');
+INSERT INTO `ingredientrepertory` VALUES ('2', '3', '0');
+INSERT INTO `ingredientrepertory` VALUES ('3', '1', '10');
+INSERT INTO `ingredientrepertory` VALUES ('3', '2', '0');
+INSERT INTO `ingredientrepertory` VALUES ('3', '3', '0');
+INSERT INTO `ingredientrepertory` VALUES ('4', '1', '123');
+INSERT INTO `ingredientrepertory` VALUES ('4', '2', '0');
+INSERT INTO `ingredientrepertory` VALUES ('4', '3', '0');
+INSERT INTO `ingredientrepertory` VALUES ('5', '1', '246');
+INSERT INTO `ingredientrepertory` VALUES ('5', '2', '678');
+INSERT INTO `ingredientrepertory` VALUES ('5', '3', '0');
+INSERT INTO `ingredientrepertory` VALUES ('6', '1', '0');
+INSERT INTO `ingredientrepertory` VALUES ('6', '2', '0');
+INSERT INTO `ingredientrepertory` VALUES ('6', '3', '0');
 
 -- ----------------------------
 -- Table structure for `ingredients`
@@ -216,40 +199,32 @@ CREATE TABLE `ingredients` (
 -- ----------------------------
 -- Records of ingredients
 -- ----------------------------
-INSERT INTO `ingredients` VALUES ('1', '土豆丝', '3.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('2', '辣椒', '10.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('3', '青菜', '1.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('4', '鲤鱼', '15.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('5', '鲫鱼', '18.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('6', '草鱼', '7.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('7', '芹菜', '2.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('8', '韭菜', '1.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('9', '鲍鱼', '100.00', '0.00', null);
-INSERT INTO `ingredients` VALUES ('10', '海参', '30.00', '0.00', null);
+INSERT INTO `ingredients` VALUES ('1', '草鱼', '25.00', '22.00', '草鱼');
+INSERT INTO `ingredients` VALUES ('2', '牛肉', '80.00', '12341248.00', '牛肉');
+INSERT INTO `ingredients` VALUES ('3', '鲤鱼', '28.00', '10.00', '鲤鱼');
+INSERT INTO `ingredients` VALUES ('4', '鲫鱼', '19.00', '123.00', '鲫鱼');
+INSERT INTO `ingredients` VALUES ('5', '甲鱼', '200.00', '924.00', '甲鱼');
+INSERT INTO `ingredients` VALUES ('6', '青菜', '2.00', '0.00', '青菜');
 
 -- ----------------------------
 -- Table structure for `menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
-  `menuID` bigint(20) NOT NULL,
+  `menuID` bigint(20) NOT NULL auto_increment,
   `foodID` bigint(20) NOT NULL,
   `state` int(1) NOT NULL,
   `staffID` bigint(20) NOT NULL,
   PRIMARY KEY  (`menuID`),
   KEY `FK_Reference_7` (`staffID`),
   CONSTRAINT `FK_Reference_7` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '1', '1', '1');
-INSERT INTO `menu` VALUES ('2', '2', '1', '1');
-INSERT INTO `menu` VALUES ('3', '3', '1', '1');
-INSERT INTO `menu` VALUES ('4', '4', '1', '1');
-INSERT INTO `menu` VALUES ('5', '5', '1', '1');
-INSERT INTO `menu` VALUES ('6', '6', '1', '1');
+INSERT INTO `menu` VALUES ('1', '1', '1', '150901');
+INSERT INTO `menu` VALUES ('2', '2', '1', '150901');
 
 -- ----------------------------
 -- Table structure for `purchase`
@@ -305,12 +280,9 @@ CREATE TABLE `repertory` (
 -- ----------------------------
 -- Records of repertory
 -- ----------------------------
-INSERT INTO `repertory` VALUES ('1', '123', '10000', '北京', '1');
-INSERT INTO `repertory` VALUES ('2', '1000', '10000', '南京', '2');
-INSERT INTO `repertory` VALUES ('3', '1000', '10000', '天津', '1');
-INSERT INTO `repertory` VALUES ('4', '1000', '10000', '南极', '2');
-INSERT INTO `repertory` VALUES ('5', '1000', '10000', '东京', '1');
-INSERT INTO `repertory` VALUES ('6', '1000', '10000', '山东', '2');
+INSERT INTO `repertory` VALUES ('1', '10000', '10000', '北京', '150902');
+INSERT INTO `repertory` VALUES ('2', '10000', '10000', '南京', '150901');
+INSERT INTO `repertory` VALUES ('3', '10000', '10000', '天津', '150902');
 
 -- ----------------------------
 -- Table structure for `sale`
@@ -347,13 +319,14 @@ CREATE TABLE `seat` (
 -- ----------------------------
 -- Records of seat
 -- ----------------------------
-INSERT INTO `seat` VALUES ('1', '1', '0', '4', '一楼');
+INSERT INTO `seat` VALUES ('1', '1', '1', '4', '一楼');
 INSERT INTO `seat` VALUES ('2', '2', '0', '4', '一楼');
 INSERT INTO `seat` VALUES ('3', '3', '0', '4', '一楼');
 INSERT INTO `seat` VALUES ('4', '4', '1', '4', '二楼');
 INSERT INTO `seat` VALUES ('5', '5', '0', '4', '二楼');
 INSERT INTO `seat` VALUES ('6', '6', '0', '4', '二楼');
 INSERT INTO `seat` VALUES ('7', '7', '0', '4', '三楼');
+INSERT INTO `seat` VALUES ('8', '8', '0', '4', '二楼');
 
 -- ----------------------------
 -- Table structure for `staff`
@@ -376,8 +349,9 @@ CREATE TABLE `staff` (
 -- ----------------------------
 -- Records of staff
 -- ----------------------------
-INSERT INTO `staff` VALUES ('1', '张三', '男', '25', '6115221990', null, '15611114444', null, '2015-04-15', null);
-INSERT INTO `staff` VALUES ('2', '李四', '男', '30', '32128319950629181X', null, '13263138306', null, '2015-10-19', null);
+INSERT INTO `staff` VALUES ('150901', '张三', '男', '34', '321283199807291987', '员工', '13852673767', '20000', '2015-04-15', '2016-08-12');
+INSERT INTO `staff` VALUES ('150902', '李四', '男', '34', '321283199902021815', '经理', '13852673767', '30000', '2015-09-01', '2015-09-17');
+INSERT INTO `staff` VALUES ('150903', '王五', '男', '45', '321283199807291987', '员工', '13852673756', '50000', '2015-04-15', '2016-08-16');
 
 -- ----------------------------
 -- Table structure for `usersystem`
@@ -401,4 +375,4 @@ INSERT INTO `usersystem` VALUES ('1', 'admin', 'admin', '0', 'temp@gmail.com');
 -- View structure for `tadaymenu`
 -- ----------------------------
 DROP VIEW IF EXISTS `tadaymenu`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`web`@`localhost` SQL SECURITY DEFINER VIEW `tadaymenu` AS select `web`.`food`.`foodName` AS `foodName`,`web`.`food`.`price` AS `price`,`web`.`food`.`foodType` AS `foodType`,`web`.`food`.`description` AS `description`,`web`.`menu`.`state` AS `state`,`web`.`food`.`imageLocation` AS `image` from (`menu` join `food`) where (`web`.`menu`.`foodID` = `web`.`food`.`foodID`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`web`@`localhost` SQL SECURITY DEFINER VIEW `tadaymenu` AS select `food`.`foodName` AS `foodName`,`food`.`price` AS `price`,`food`.`foodType` AS `foodType`,`food`.`description` AS `description`,`menu`.`state` AS `state`,`food`.`imageLocation` AS `image`,`food`.`foodID` AS `foodID` from (`menu` join `food`) where (`menu`.`foodID` = `food`.`foodID`) ;

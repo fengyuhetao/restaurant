@@ -12,27 +12,13 @@ if (!isset($_SESSION)) {
     //*******************myself codes start*************
 }
 include "conn/conn.php";
-function CleanHtmlTags( $content )
-{
-	$content = htmlspecialchars( $content );
-	$content = str_replace( '\n', '<br />', $content );
-	$content = str_replace( '  ', '&nbsp;&nbsp;' , $content );
-	return str_replace( '\t', '&nbsp;&nbsp;&nbsp;&nbsp;', $content );
-}
 ?>
 <?php
 	if($_POST['id']!="")
 	{
-		$desc=CleanHtmlTags($_POST['desc']);
-    $selectSQL="select * from repertory";
-    $sql = mysql_query($selectSQL, $conn) or die(mysql_error());
-    while($row=mysql_fetch_array($sql)){
-         $insertSQL1="insert into ingredientrepertory(ingredientsID,repertoryID,number) values ($_POST[id],$row[repertoryID],0);";
-         $sql2=mysql_query($insertSQL1,$conn) or die(mysql_error());
-       }
-    $insertSQL ="insert into ingredients(ingredientsID,ingredientName,price,number,description) values ($_POST[id],'$_POST[name]',$_POST[price],0,'$desc');";
-		$sql1 = mysql_query($insertSQL, $conn) or die(mysql_error());
-	echo "<script> alert('添加成功！');window.location.href='ingredientsinfo.php'</script>";	
+ 		$insertSQL ="insert into checkwork(date,staffID,workPercentage) values (date('Y-m-d'),$_POST[id],$_POST[work]);";
+		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
+	echo "<script> alert('添加成功！');window.location.href='financial_staff.php'</script>";	
 	}
 	
 ?>
@@ -47,13 +33,13 @@ function CleanHtmlTags( $content )
         
         <div class="header">
             
-            <h1 class="page-title">添加食材记录</h1>
+            <h1 class="page-title">添加员工考勤记录</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="index.php">首页</a> <span class="divider">/</span></li>
-            <li><a href="staffinfo.php">食材管理</a> <span class="divider">/</span></li>
-            <li class="active">添加食材记录</li>
+            <li><a href="financial_staff.php">人员统计</a> <span class="divider">/</span></li>
+            <li class="active">添加员工考勤记录</li>
         </ul>
 
         <div class="container-fluid">
@@ -65,19 +51,12 @@ function CleanHtmlTags( $content )
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="ingredintsinfo" method="post">
-        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input name="id" type="text" class="input-xlarge" value="<?php echo $row["ingredientsID"];?>">
+    <form name="repairinfo" method="post">
+        <label>员&nbsp;&nbsp;工&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
+        <input type="text" name="id" class="input-xlarge">
         <br/>
-        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称</label>
-        <input name="name" type="text" class="input-xlarge" value="<?php echo $row["ingredientName"];?>">
-        <br/>
-        <label>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</label>
-        <input name="price" type="text" class="input-xlarge" value="<?php echo $row["price"];?>">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br/>
-        <label>食&nbsp;&nbsp;材&nbsp;&nbsp;描&nbsp;&nbsp;&nbsp;述</label>
-        <textarea name="desc" cols="" rows="5" class="input-xlarge"><?php echo $row["description"];?></textarea>
+        <label>工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量</label>
+        <input type="text" name="work" class="input-xlarge">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">
@@ -130,7 +109,7 @@ function CleanHtmlTags( $content )
 	{
 		if(!checkform(form))
 			return false;
-		document.ingredientsinfo.submit();
+		document.repairinfo.submit();
 	}
 	</script>
 

@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']=="GET")
         
         <div class="header">
             
-            <h1 class="page-title">查看维修记录</h1>
+            <h1 class="page-title">查看食材信息</h1>
         </div>
         
                 <ul class="breadcrumb">

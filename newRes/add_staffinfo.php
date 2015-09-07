@@ -162,14 +162,6 @@ include "conn/conn.php";?>
     </div>
     
 
-
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-    </script>
     <script type="text/javascript" src="js/check.js"></script>
     <script>
 	function TianJia(form)
