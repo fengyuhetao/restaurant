@@ -54,7 +54,7 @@ include "conn/conn.php";
         <input type="text" name="capacity" class="input-xlarge">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <label>座&nbsp;&nbsp;位&nbsp;&nbsp;位&nbsp;&nbsp;&nbsp;置</label>
-        <input type="text" name="seatDirection" class="input-xlarge">
+        <input type="text" name="seatDirection" class="input-xlarge" title="请填写一楼或二楼或三楼">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">

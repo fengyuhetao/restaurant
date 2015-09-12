@@ -36,8 +36,9 @@ if (!isset($_SESSION)) {
 </div>-->
 <?php
 $arrayAll=mysql_fetch_array($selectAll);
+$billID=$arrayAll['billID'];
 ?>
-<h3>账单号：<?php echo $arrayAll['billID'];?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：<?php echo $arrayAll['date'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;桌号：<?php echo $arrayAll['seatID'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处理人：<?php echo $arrayAll['staffID'];?></h3>
+<h3>账单号：<?php echo $billID;?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：<?php echo $arrayAll['date'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;桌号：<?php echo $arrayAll['seatID'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处理人：<?php echo $arrayAll['staffID'];?></h3>
 <div class="well">
     <table class="table">
       <thead>
@@ -71,28 +72,11 @@ $arrayAll=mysql_fetch_array($selectAll);
 <h3>总价：<?php echo $arrayAll['allPrice'];?>	</h3>
 <div class="pagination">
 
+<div class="form-inline"><button class="btn" type="button">处理者ID</button>
+<input class="input-xlarge" type="text" style="height:30px;" id="dealid"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" data-toggle="modal" onclick="deal(<?php echo $billID;?>);"><i class="icon-save"></i>处理</button>
 </div>
-
-<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-
-
-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Delete Confirmation</h3>
-    </div>
-    <div class="modal-body">
-        <p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the 
-
-user?</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-    </div>
 </div>
-
-
-       
+  
                     <footer>
                         <hr>
                         <p>&copy; 2015 by sunrise laboratory </p>
@@ -101,3 +85,18 @@ user?</p>
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+function deal(billID){
+  var dealid=document.getElementById('dealid');
+
+  if(dealid.value=="")
+  {
+      alert("请输入ID");
+  }
+  else
+  { 
+        window.location.href='bill_deal.php?billID='+billID+'&staffID='+dealid.value;
+  }
+  }
+</script>

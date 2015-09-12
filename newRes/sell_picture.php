@@ -14,18 +14,18 @@ if (!isset($_SESSION)) {
 <?php include("conn/conn.php"); ?>
 <?php 
 	$arr=array();
-	$i=1;
-	while($i<31)
+	$i=30;
+	while($i>=1)
 	{
 		$sql=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL $i DAY)");
 		$info=mysql_fetch_array($sql);
 		array_push($arr,intval($info['sumprice']));
-		$i++;
+		$i--;
 	}
 	$data=json_encode($arr);
     $arr1=array();
-    $m=1;
-    while($m<31)
+    $m=30;
+    while($m>=1)
     {
         $sqlselect=mysql_query("select purchaseID from purchase WHERE DATE=DATE_SUB(CURDATE( ), INTERVAL $m DAY)") or die(mysql_error());
         if($array=mysql_fetch_array($sqlselect)){
@@ -39,7 +39,7 @@ if (!isset($_SESSION)) {
         }
         else
             array_push($arr1,0);
-        $m++;
+        $m--;
     }
     $data1=json_encode($arr1);
  ?>

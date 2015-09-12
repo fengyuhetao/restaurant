@@ -30,28 +30,9 @@ if (!isset($_SESSION)) {
 <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
 <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
 <script src="lib/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script>
-function iframeResizeHeight(frame_name,body_name,offset) {
-	parent.document.getElementById(frame_name).height=document.getElementById(body_name).offsetHeight;
-}
-
-function Resize(oframe,obody){
- 	if(parent.document.getElementById(oframe)){
-  		return iframeResizeHeight(oframe,obody,0);
- }
-}
-
-function stamp(obj)
-{
-	var oldStr=document.body.innerHTML;
-	document.body.innerHTML=document.getElementById(obj).innerHTML;
-	window.print();
-	document.body.innerHTML=oldStr;
-}
- </script>
 </head>
-
-<body onLoad="Resize('main_sell_day','sellday');">
+<?php include("boot.php");?>
+<body>
 <div id="sellday">
     <a  class="block-heading" data-toggle="collapse">页次<?php echo $page;?>/<?php echo $page_page;?>页 记录：<?php echo $row;?>条</a>
 
@@ -83,6 +64,11 @@ function stamp(obj)
                   </table>
                   </div>
                   <div class="pagination" >
+                               <?php 
+        $sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 12 MONTH)");
+        $info=mysql_fetch_array($sql1);
+?>
+                          总销售额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
               			<ul style="float:right;">
                             <li><a href="sell_day.php?page=1">首页</a> </li>
                   		    <li><a href="sell_day.php?page=<?php if($page==1){echo $page=1; }else{ echo $page-1; }?>">上一页</a></li>
@@ -91,13 +77,8 @@ function stamp(obj)
                     		<li><a href="#" onClick="stamp('page_stats');">打印</a></li>
                         </ul>
                   </div>
-             <?php 
-				$sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 12 MONTH)");
-				$info=mysql_fetch_array($sql1);
-?>
-			<hr/>
-			总销售额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
-           </div>
+  
 
+           </div>
 </div>
 </body>

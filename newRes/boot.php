@@ -125,6 +125,7 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
         <ul id="accounts-bill" class="nav nav-list collapse">
             <li ><a href="financial_sell.php">销售统计</a></li>
             <li ><a href="financial_staff.php">人员统计</a></li>
+            <li ><a href="sell_info.php">销售记录</a></li>
             <li ><a href="financial_repair.php">维修记录</a></li>
             <li ><a href="financial_purchase.php">采购记录</a></li>
         </ul>
@@ -151,9 +152,6 @@ $arrayDealTFNum=mysql_fetch_array($selectDealTFNum);
             <li ><a href="seatinfo.php">座位管理</a></li>
             <!--<li ><a href="terms-and-conditions.html">Terms and Conditions</a></li>-->
         </ul>
-
-        <a href="#" class="nav-header" ><i class="icon-question-sign"></i>Help</a>
-        <a href="#" class="nav-header" ><i class="icon-comment"></i>Faq</a>
     </div>
     
 

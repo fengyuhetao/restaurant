@@ -15,8 +15,8 @@ include "conn/conn.php";?>
 <?php
 	if($_POST['id']!="")
 	{
- 		$insertSQL ="insert into staff(staffID,name,sex,age,identityCardID,position,phone,wage,startWorkTime,endWorkTime) values (".$_POST['id'].",'".$_POST['name']."','".$_POST['sex']."',".$_POST['age'].",'".$_POST['sfid']."','".$_POST['pos']."','".$_POST['tel']."',".$_POST['wage'].",'".$_POST['startt']."','".$_POST['endt']."');";
-		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
+ 		$insertSQL ="insert into staff(staffID,name,sex,age,identityCardID,position,phone,wage,startWorkTime,endWorkTime) values ($_POST[id],'$_POST[sex]','$_POST[name]',$_POST[age],'$_POST[sfid]','$_POST[pos]','$_POST[tel]',$_POST[wage],'$_POST[startt]','$_POST[endt]')";
+		$sql = mysql_query($insertSQL, $conn);
 	echo "<script> alert('添加成功！');window.location.href='staffinfo.php'</script>";	
 	}
 	

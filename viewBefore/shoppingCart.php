@@ -100,7 +100,7 @@
   <section id="product">
     <div class="container">
      <!--  breadcrumb --> 
-
+      <h1 class="heading1" align="center"><a href="video.html" class="maintext">厨房实时展示</a>
       <h1 class="heading1"><span class="maintext"> 菜单</span>
           <div class="pull-right">
               <div class="input-group">
@@ -125,10 +125,6 @@
           <?php 
               include_once('conn/conn.php');
               $selects=mysql_query("select * from tadayMenu",$conn);
-              if($selects)
-                echo "<script>alert(0);</script>";
-              else 
-                echo "<script>alert(1);</script>";
               while($array=mysql_fetch_array($selects)){
           ?>
           <tr>

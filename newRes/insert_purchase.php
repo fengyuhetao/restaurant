@@ -167,10 +167,6 @@ include("conn/conn.php"); ?>
       }
       else
 		  { 
-        alert(1);
-        alert(address);
-        alert(dealid.value);
-        alert(purchase);
         window.location.href='deal.php?repertoryID='+address+'&dealid='+dealid.value+'&purchaseid='+purchase;
       }
     }

@@ -11,6 +11,7 @@ function CleanHtmlTags( $content )
 <?php 
 //上传文件的路径
 $dir = 'D:\AppServ\www\hetao\newRes\images\food\\';
+$dir1 = 'D:\AppServ\www\hetao\viewBefore\images\food\\';
 /*
 $_FILES:用在当需要上传二进制文件的地方,获得该文件的相关信息
 $_FILES['userfile']['name'] 客户端机器文件的原名称。 
@@ -95,13 +96,22 @@ if(count($ingredients)!=0)
 switch($type)
 {
     case IMAGETYPE_GIF:
+     {
         imagegif($image,$dir.$name);
+        imagegif($image,$dir1.$name);
+     }   
     break;
     case IMAGETYPE_JPEG:
+    {
         imagejpeg($image,$dir.$name);
+        imagejpeg($image,$dir1.$name);
+    }
     break;
     case IMAGETYPE_PNG:
+    {
         imagepng($image,$dir.$name);
+        imagepng($image,$dir1.$name);
+    }
     break;
 }
 //销毁由url生成的图片

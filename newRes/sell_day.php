@@ -83,20 +83,19 @@ function stamp(obj)
                   </table>
                   </div>
                   <div class="pagination" >
+                    <?php 
+        $sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 1 DAY)");
+        $info=mysql_fetch_array($sql1);
+?>
+      总销售额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
               			<ul style="float:right;">
                             <li><a href="sell_day.php?page=1">首页</a> </li>
                   		    <li><a href="sell_day.php?page=<?php if($page==1){echo $page=1; }else{ echo $page-1; }?>">上一页</a></li>
                     		<li><a href="sell_day.php?page=<?php if($page<$page_page){echo $page+1;}else{ echo $page_page;}?>">下一页</a></li>
                     		<li><a href="sell_day.php?page=<?php echo $page_page;?>">尾页</a></li>
-                    		<li><a href="#" onClick="stamp('page_stats');">打印</a></li>
                         </ul>
                   </div>
-             <?php 
-				$sql1=mysql_query("select sum(allPrice) as sumprice from bill WHERE DATE>= DATE_SUB(CURDATE( ), INTERVAL 1 DAY)");
-				$info=mysql_fetch_array($sql1);
-?>
-			<hr/>
-			总销售额为:<input type="text" value="<?php echo $info[0];?>" disabled/>
+             
            </div>
 
 </div>
