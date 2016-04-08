@@ -14,13 +14,13 @@ if (!isset($_SESSION)) {
 <?php include ("conn/conn.php"); ?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
-		$page=$_GET['page'];
+		$page=addslashes($_GET['page']);
 	}
 	else{
 		$page=1;
 	}
 	$page_count=20;
-	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 1 DAY)");
+	$sql=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH)");
 	$row=mysql_num_rows($sql);                  //判断数据的数量
 	$page_page=ceil($row/$page_count);          //判断页数
 	$last_record=($page-1)*$page_count;          //获取上一页的最后一条记录
@@ -66,7 +66,7 @@ function stamp(obj)
                       <th>处理人ID</th>
                   </tr>
                   <?php 
-                        $sqls=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 1 DAY) limit $last_record,$page_count;");
+                        $sqls=mysql_query("SELECT billID,seatID,allPrice,date,staffID from bill WHERE date>= DATE_SUB(CURDATE( ), INTERVAL 2 MONTH) limit $last_record,$page_count;");
                         $array=mysql_fetch_array($sqls);
 					 do{
                   ?>

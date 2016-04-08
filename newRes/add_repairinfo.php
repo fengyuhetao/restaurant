@@ -21,10 +21,10 @@ function CleanHtmlTags( $content )
 }
 ?>
 <?php
-	if($_POST['id']!="")
+	if(isset($_POST['id']) && $_POST['id']!="")
 	{
 		$desc=CleanHtmlTags($_POST['desc']);
- 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".$_POST['id'].",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
+ 		$insertSQL ="insert into repair(repairID,date,dealMoney,eventDescription,staffID) values (".addslashes($_POST['id']).",'".$_POST['date']."',".$_POST['cos'].",'".$desc."',".$_POST['staffID'].");";
 		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
 	echo "<script> alert('添加成功！');window.location.href='repairinfo.php'</script>";	
 	}

@@ -14,7 +14,7 @@ if (!isset($_SESSION)) {
 }
 include_once('conn/conn.php');
 if(isset($_GET['page'])){
-		$page=$_GET['page'];
+		$page=addslashes($_GET['page']);
 	}else{
 	  	$page=1;
 	}

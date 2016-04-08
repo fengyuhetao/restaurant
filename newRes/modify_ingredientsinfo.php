@@ -2,14 +2,14 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$selectsql="select * from ingredients where ingredientsID='".$id."'";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
 }
 else if($_SERVER['REQUEST_METHOD']=="POST")
 {
-	$updatesql="update ingredients set ingredientsID=".$_POST['id'].",ingredientName='".$_POST['name']."',price=".$_POST['price'].",number=".$_POST['number'].",description='".$_POST['desc']."' where ingredientsID='".$_GET['id']."';";
+	$updatesql="update ingredients set ingredientsID=".addslashes($_POST['id']).",ingredientName='".addslashes($_POST['name'])."',price=".addslashes($_POST['price']).",number=".addslashes($_POST['number']).",description='".htmlspecialchars($_POST['desc'])."' where ingredientsID='".addslashes($_GET['id'])."';";
 		$sql = mysql_query($updatesql, $conn) or die(mysql_error());
   $selectsql1="select * from ingredientrepertory";
   $query=mysql_query($selectsql1,$conn) or die(mysql_error());

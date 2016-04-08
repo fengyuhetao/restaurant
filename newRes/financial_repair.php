@@ -14,7 +14,7 @@ if (!isset($_SESSION)) {
 <?php 
   include ("conn/conn.php"); 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
-		$page=$_GET['page'];
+		$page=addslashes($_GET['page']);
 	}
 	else{
 		$page=1;
@@ -72,7 +72,7 @@ function stamp(obj)
                           <td><?php echo $array['repairID'];?></td>
                           <td><?php echo $array['date'];?></td>
                           <td><?php echo $array['dealMoney'];?></td>
-                          <td><?php echo $array['eventDiscription'];?></td>
+                          <td><?php echo $array['eventDescription'];?></td>
                           <td><?php echo $array['staffID'];?></td>
                       </tr>
                       <?php 

@@ -2,7 +2,7 @@
 <?php require_once('conn/conn.php');
   $currentPage = "menuinfo.php";
   if (isset($_GET['pageNum'])) {
-    $pageNum = $_GET['pageNum'];
+    $pageNum = addslashes($_GET['pageNum']);
   }
   
   $query = "select * from food";
@@ -10,7 +10,7 @@
   $row = mysql_fetch_assoc($sql);
   
   if (isset($_GET['totalRows'])) {
-    $totalRows_rs1 = $_GET['totalRows'];
+    $totalRows_rs1 = addslashes($_GET['totalRows']);
   } else {
     $all = mysql_query($query);
     $totalRows = mysql_num_rows($all);
@@ -63,7 +63,7 @@
             $array=mysql_fetch_array($sql1); 
             if($array){
           ?>
-          <td><input type="checkbox" name="select" value="<?php if($array[state]==1) echo $row['foodID']." 1";else echo $row['foodID']."0";?>" checked/></td>
+          <td><input type="checkbox" name="select" value="<?php if($array['state']==1) echo $row['foodID']." 1";else echo $row['foodID']."0";?>" checked/></td>
           <?php } else {?>
           <td><input type="checkbox" name="select" value="<?php echo $row['foodID']." 0";?>"/></td>
           <?php } ?>
@@ -72,7 +72,7 @@
           <td><?php echo $row['price'];?></td>
           <td><?php echo $row['foodType'];?></td>
           <td><?php echo mb_strlen($row['description'])>25?mb_substr($row['description'],0,25,"utf-8")."...":$row['description'];?></td>
-          <td><?php if($array) { if($array[state]==1) echo "有";else echo "无";} else {echo "无";}?></td>
+          <td><?php if($array) { if($array['state']==1) echo "有";else echo "无";} else {echo "无";}?></td>
           <td>
               <a href="show_foodinfo.php?id=<?php echo $row['foodID'];?>"><i class="icon-list"></i></a>
               <a href="modify_menuinfo.php?id=<?php echo $row['foodID'];?>"><i class="icon-pencil"></i></a>

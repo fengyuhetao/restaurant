@@ -1,10 +1,10 @@
 <?php include_once('conn/conn.php');?>
 <?php
-$seatid=$_POST['seatid'];
-$capacity=$_POST['capacity'];
-$number=$_POST['number'];
-$position=$_POST['seatDirection'];
-$state=$_POST['seatState'];
+$seatid=addslashes($_POST['seatid']);
+$capacity=addslashes($_POST['capacity']);
+$number=addslashes($_POST['number']);
+$position=addslashes($_POST['seatDirection']);
+$state=addslashes($_POST['seatState']);
 if($state=="有人")
 	$seatstate=1;
 else 

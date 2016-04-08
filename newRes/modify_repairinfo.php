@@ -4,13 +4,13 @@
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
 	$id=$_GET["id"];
-	$selectsql="select * from repair where repairID='".$id."'";
+	$selectsql="select * from repair where repairID='".addslashes($id)."'";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
 }
 else if($_SERVER['REQUEST_METHOD']=="POST")
 {
-	$updatesql="update repair set date='".$_POST['date']."',dealMoney=".$_POST['cos'].",eventDescription='".$_POST['desc']."',staffID=".$_POST['staffID']." where repairID='".$_POST['id']."';";
+	$updatesql="update repair set date='".addslashes($_POST['date'])."',dealMoney=".addslashes($_POST['cos']).",eventDescription='".addslashes($_POST['desc'])."',staffID=".addslashes($_POST['staffID'])." where repairID='".addslashes($_POST['id'])."';";
 		$sql = mysql_query($updatesql, $conn) or die(mysql_error());
 	echo "<script> alert('修改成功！');window.location.href='repairinfo.php'</script>";
 }

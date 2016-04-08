@@ -3,7 +3,7 @@
 $id="";
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$selectsql="select * from food where foodID=".$id."";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD']=="GET")
             $array=mysql_fetch_array($sql1); 
             if($array){
           ?>
-        <input name="state" type="text" maxlength="1" title="请填写有或无" class="input-xlarge" value="<?php if($array[state]==1) echo "有"; else echo "无";?>"/>
+        <input name="state" type="text" maxlength="1" title="请填写有或无" class="input-xlarge" value="<?php if($array['state']==1) echo "有"; else echo "无";?>"/>
         <?php } else { ?>
         <input name="state" type="text" maxlength="1" class="input-xlarge" value="<?php echo "无";?>"/>
         <?php } ?>

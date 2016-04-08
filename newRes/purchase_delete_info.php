@@ -1,7 +1,7 @@
 <?php include('conn/conn.php');?>
 <?php
-$stf=$_GET['ingredientsID'];
-$ptf=$_GET['purchaseID'];
+$stf=addslashes($_GET['ingredientsID']);
+$ptf=addslashes($_GET['purchaseID']);
 $query=mysql_query("delete from ingredientpurchasetemp  WHERE  ingredientIDtemp=$stf and purchaseIDtemp=$ptf;");
 echo "<script language='javascript'>alert('删除成功!')</script>";
 ?>

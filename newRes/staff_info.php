@@ -14,7 +14,7 @@ if (!isset($_SESSION)) {
 <?php include("conn/conn.php");?>
 <?php 
 	if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
-		$page=$_GET['page'];
+		$page=addslashes($_GET['page']);
 	}
 	else{
 		$page=1;

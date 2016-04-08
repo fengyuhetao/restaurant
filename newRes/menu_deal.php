@@ -1,7 +1,7 @@
 <?php 
 include_once("conn/conn.php");
-$aid=$_GET[aid];
-$staffid=$_GET[staffid];
+$aid=addslashes($_GET[aid]);
+$staffid=addslashes($_GET[staffid]);
 $array=array();
 $array=explode(" ",$aid);
 $select=mysql_query("select * from staff where staffID=$staffid",$conn) or die(mysql_error());

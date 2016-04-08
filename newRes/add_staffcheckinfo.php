@@ -16,7 +16,7 @@ include "conn/conn.php";
 <?php
 	if($_POST['id']!="")
 	{
- 		$insertSQL ="insert into checkwork(date,staffID,workPercentage) values (date('Y-m-d'),$_POST[id],$_POST[work]);";
+ 		$insertSQL ="insert into checkwork(date,staffID,workPercentage) values (date('Y-m-d'),addslashes($_POST[id]),$_POST[work]);";
 		$sql = mysql_query($insertSQL, $conn) or die(mysql_error());
 	echo "<script> alert('添加成功！');window.location.href='financial_staff.php'</script>";	
 	}

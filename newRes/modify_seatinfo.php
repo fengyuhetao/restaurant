@@ -3,7 +3,7 @@
 $id="";
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$selectsql="select * from seat where seatID=".$id."";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
@@ -38,21 +38,21 @@ if($_SERVER['REQUEST_METHOD']=="GET")
     </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
-    <form name="seatinfo" method="post" action="modify_seatinfo_ok.php?id=<?php echo $_GET[id];?>">
+    <form name="seatinfo" method="post" action="modify_seatinfo_ok.php?id=<?php echo $_GET['id'];?>">
         <label>座&nbsp;&nbsp;位&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;号</label>
-        <input type="text" name="seatid" class="input-xlarge" value="<?php echo $row[seatID];?>">
+        <input type="text" name="seatid" class="input-xlarge" value="<?php echo $row['seatID'];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>桌&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-        <input type="text" name="number" class="input-xlarge" value="<?php echo $row[number];?>">
+        <input type="text" name="number" class="input-xlarge" value="<?php echo $row['number'];?>">
         <br/>
         <label>容&nbsp;&nbsp;纳&nbsp;&nbsp;人&nbsp;&nbsp;&nbsp;数</label>
-        <input type="text" name="capacity" class="input-xlarge" value="<?php echo $row[capacity];?>">
+        <input type="text" name="capacity" class="input-xlarge" value="<?php echo $row['capacity'];?>">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <label>座&nbsp;&nbsp;位&nbsp;&nbsp;位&nbsp;&nbsp;&nbsp;置</label>
-        <input type="text" name="seatDirection" class="input-xlarge" value="<?php echo $row[seatDirection];?>">
+        <input type="text" name="seatDirection" class="input-xlarge" value="<?php echo $row['seatDirection'];?>">
         <br/>
         <label>座&nbsp;&nbsp;位&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态</label>
-        <input type="text" name="seatState" class="input-xlarge" value="<?php  if($row[seatState]==1) echo "有人";else echo "无人";?>"  title="请填写有人或无人">
+        <input type="text" name="seatState" class="input-xlarge" value="<?php  if($row['seatState']==1) echo "有人";else echo "无人";?>"  title="请填写有人或无人">
       </div>
       <!--<div class="tab-pane fade" id="profile">
     <form id="tab2">

@@ -12,9 +12,9 @@ if (!isset($_SESSION)) {
     //*******************myself codes start*************
 }?>
 <?php require_once('conn/conn.php');
-if($_GET["id"]!="")
+if(isset($_GET['id']) && $_GET["id"]!="")
 {
-	$id=$_GET[id];
+	$id=addslashes($_GET[id]);
 	$deleteSQL="delete from staff where staffID=$id";
 	$sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
 	echo "<script>window.location.href='staffinfo.php';</script>";
@@ -24,8 +24,8 @@ else
 	$currentPage = "staffinfo.php";
 	$maxRows = 5;
 	$pageNum = 0;
-	if (isset($_GET[pageNum])) {
-	  $pageNum = $_GET[pageNum];
+	if (isset($_GET['pageNum'])) {
+	  $pageNum = $_GET['pageNum'];
 	}
 	$startRow = $pageNum * $maxRows;
 	
@@ -34,8 +34,8 @@ else
 	$sql = mysql_query($query_limit, $conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);
 	
-	if (isset($_GET[totalRows])) {
-	  $totalRows_rs1 = $_GET[totalRows];
+	if (isset($_GET['totalRows'])) {
+	  $totalRows_rs1 = $_GET['totalRows'];
 	} else {
 	  $all = mysql_query($query);
 	  $totalRows = mysql_num_rows($all);

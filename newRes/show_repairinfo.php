@@ -3,7 +3,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$selectsql="select * from repair where repairID='".$id."'";
 	$sql = mysql_query($selectsql,$conn) or die(mysql_error());
 	$row = mysql_fetch_assoc($sql);

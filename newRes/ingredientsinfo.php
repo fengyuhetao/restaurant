@@ -1,8 +1,9 @@
 <?php include('boot.php');?>
-<?php require_once('conn/conn.php');
-if($_GET["id"]!="")
+<?php 
+require_once('conn/conn.php');
+if(isset($_GET['id']) && $_GET["id"]!="")
 {
-  $id=$_GET["id"];
+  $id=addslashes($_GET["id"]);
   $deleteSQL="delete from ingredients where ingredientsID='".$id."'";
   $sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
   $deleteSQL1="delete form ingredientrepertory where ingredientsID=$id";
@@ -15,7 +16,7 @@ else
   $maxRows = 20;
   $pageNum = 0;
   if (isset($_GET['pageNum'])) {
-    $pageNum = $_GET['pageNum'];
+    $pageNum = addslashes($_GET['pageNum']);
   }
   $startRow = $pageNum * $maxRows;
   

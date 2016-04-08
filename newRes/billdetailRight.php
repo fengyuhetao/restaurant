@@ -26,14 +26,7 @@ if (!isset($_SESSION)) {
 
         <div class="container-fluid">
             <div class="row-fluid">
-                    
-<!--<div class="btn-toolbar">
-    <button class="btn btn-primary"><i class="icon-plus"></i> New User</button>
-    <button class="btn">Import</button>
-    <button class="btn">Export</button>
-  <div class="btn-group">
-  </div>
-</div>-->
+                  
 <?php
 $arrayAll=mysql_fetch_array($selectAll);
 $billID=$arrayAll['billID'];

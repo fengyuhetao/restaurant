@@ -21,11 +21,6 @@ if (!isset($_SESSION)) {
         <li><a href="main.php">管理系统</a> <span class="divider">/</span></li>
         <li class="active">菜单</li>
     </ul>
-   
-
-
-
-
 
 
  <div class="container-fluid">
@@ -56,20 +51,7 @@ if (!isset($_SESSION)) {
             <?php
             }
             ?>
-
-
-            
             </div>
-            <!--<div class="btn-toolbar">
-                <button class="btn btn-primary">
-                    <i class="icon-plus"></i>New User</button>
-                <button class="btn">
-                    Import</button>
-                <button class="btn">
-                    Export</button>
-                <div class="btn-group">
-                </div>
-            </div>-->
             <div class="well">
                 <table class="table">
                     <thead>

@@ -15,7 +15,7 @@ include("conn/conn.php"); ?>
   <?php 
   $purchase=0;
    if(isset($_GET['page'])){       //判断是否有$_GET['page']变量传进来
-            $page=$_GET['page'];
+            $page=addslashes($_GET['page']);
         }
         else{
             $page=1;
@@ -60,7 +60,7 @@ include("conn/conn.php"); ?>
                             <?php 
                                   $sqls=mysql_query("select * from ingredientpurchasetemp");
                                   $array=mysql_fetch_array($sqls);
-                                  $purchase=$array[purchaseIDtemp];
+                                  $purchase=$array['purchaseIDtemp'];
                                   do{
                             ?>        <!-- 输出数据-->
                             <tr>

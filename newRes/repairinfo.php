@@ -1,8 +1,8 @@
 <?php include('boot.php');?>
 <?php require_once('conn/conn.php');
-if($_GET["id"]!="")
+if(isset($_GET['id']) && $_GET["id"]!="")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$deleteSQL="delete from repair where repairID='".$id."'";
 	$sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
 	echo "<script>window.location.href='repairinfo.php';</script>";

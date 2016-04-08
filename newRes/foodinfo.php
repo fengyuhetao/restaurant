@@ -1,8 +1,9 @@
 <?php include('boot.php');?>
 <?php require_once('conn/conn.php');
-if($_GET["id"]!="")
+if(isset($_GET['id']) && $_GET["id"]!="")
 {
-  $id=$_GET["id"];
+  $id=addslashes($_GET["id"]);
+
   $deleteSQL1="delete from foodingredients where foodID=$id";
   mysql_query($deleteSQL1,$conn) or die(mysql_error());
   $selectsql="select * from food where foodID=$id";
@@ -94,56 +95,7 @@ else
         </tr>
        <?php } // Show if recordset not empty ?>
 <?php } while ($row = mysql_fetch_assoc($sql)); ?>
-       <!-- <tr>
-          <td>2</td>
-          <td>Ashley</td>
-          <td>Jacobs</td>
-          <td>ash11927</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Audrey</td>
-          <td>Ann</td>
-          <td>audann84</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>John</td>
-          <td>Robinson</td>
-          <td>jr5527</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Aaron</td>
-          <td>Butler</td>
-          <td>aaron_butler</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>Chris</td>
-          <td>Albert</td>
-          <td>cab79</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>-->
+
       </tbody>
     </table>
 </div>

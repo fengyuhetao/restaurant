@@ -40,10 +40,6 @@ $query=mysql_query($select,$conn) or die(mysql_error());
         <div class="container-fluid">
             <div class="row-fluid">
 <div class="well">
-   <!-- <ul class="nav nav-tabs">
-      <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-      <li><a href="#profile" data-toggle="tab">Password</a></li>
-    </ul>-->
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in" id="home">
     <form name="foodinfo" method="post" action="add_foodinfo_ok.php" enctype="multipart/form-data">
@@ -63,29 +59,20 @@ $query=mysql_query($select,$conn) or die(mysql_error());
         <textarea name="desc" rows="5" class="input-xlarge"> 
         </textarea>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label>选&nbsp;&nbsp;择&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label>
-        <input type="file" name="uploadfile" onchange="load();" id="picture"/>
+        <!-- <label>选&nbsp;&nbsp;择&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;片</label> -->
+        <!-- <input type="file" name="uploadfile" onchange="load();" id="picture"/> -->
         <br/>
         <label>选&nbsp;&nbsp;择&nbsp;&nbsp;食&nbsp;&nbsp;&nbsp;材:</label>
         <br/>
         <?php 
               while($array=mysql_fetch_array($query)){
         ?>
-              <input type="checkbox" name="select[]" value="<?php echo $array[ingredientsID];?>">&nbsp;&nbsp;<?php echo $array[ingredientName]?>&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="checkbox" name="select[]" value="<?php echo $array['ingredientsID'];?>">&nbsp;&nbsp;<?php echo $array['ingredientName']?>&nbsp;&nbsp;&nbsp;&nbsp;
         <?php
             }
         ?>
         
       </div>
-      <!--<div class="tab-pane fade" id="profile">
-    <form id="tab2">
-        <label>New Password</label>
-        <input type="password" class="input-xlarge">
-        <div>
-            <button class="btn btn-primary">Update</button>
-        </div>
-    </form>
-      </div>-->
   </div>
 
 </div>
@@ -95,25 +82,8 @@ $query=mysql_query($select,$conn) or die(mysql_error());
   <div class="btn-group">
   </div>
 </div>
-</form>
-<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Delete Confirmation</h3>
-  </div>
-  <div class="modal-body">
-    
-    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the user?</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-  </div>
-</div>
-
-
-                    
-                    <footer>
+</form>               
+                  <footer>
                         <hr>
                         <p>&copy; 2015 by sunrise laboratory </p>
                     </footer>

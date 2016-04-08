@@ -25,7 +25,7 @@ $name=$_FILES[uploadfile][name];
  ?>
 <?php 
 //上传文件的路径
-$dir = 'D:\AppServ\www\hetao\newRes\images\food\\';
+$dir = '.\images\food\\';
 /*
 $_FILES:用在当需要上传二进制文件的地方,获得该文件的相关信息
 $_FILES['userfile']['name'] 客户端机器文件的原名称。 

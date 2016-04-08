@@ -13,6 +13,7 @@ else
 
 require_once('conn/conn.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,12 +65,7 @@ require_once('conn/conn.php');
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
 
-  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
-  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
-  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
-  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> 
-  <body class=""> 
+  <body > 
   <!--<![endif]-->
     
     <div class="navbar">
@@ -80,29 +76,19 @@ require_once('conn/conn.php');
                  <a class="brand" href="main.php"><span class="first">餐厅营业</span> <span class="second">管理系统</span></a>
         </div>
     </div>
-    
-
-
-    
-
-    
+   
         <div class="row-fluid">
     <div class="dialog">
         <div class="block">
             <p class="block-heading">登录</p>
             <div class="block-body">
-                <form  id="form1" name="form1"  method="post" action="index.php" onSubmit="return check()">
+                <form  id="form1" name="form1"  method="post" action="index.php">
                     <label>用户名</label>
                     <input type="text" class="span12" name="uname" id="uname"  placeholder="用户登录ID" />
                     <label>密码</label>
                     <input type="password" class="span12" name="upass" id="upass" placeholder="*********"/>
                     <input type="submit" class="btn btn-primary pull-right" value="登录" id="onload"  />
               			<div class="clearfix"></div>
-                 
-                    
-                    <!--<a type="submit" class="btn btn-primary pull-right">登录</a>-->
-                   <!-- <label class="remember-me"><input type="checkbox"> 记住密码</label>-->
-                    
                 </form>
             </div>
         </div>

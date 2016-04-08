@@ -1,8 +1,8 @@
 <?php include('boot.php');?>
 <?php require_once('conn/conn.php');
-if($_GET["id"]!="")
+if(isset($_GET['id']) && $_GET["id"]!="")
 {
-	$id=$_GET["id"];
+	$id=addslashes($_GET["id"]);
 	$deleteSQL="delete from seat where seatID='".$id."'";
 	$sql=mysql_query($deleteSQL,$conn) or die(mysql_error());
 	echo "<script>window.location.href='seatinfo.php';</script>";
@@ -13,7 +13,7 @@ else
 	$maxRows = 5;
 	$pageNum = 0;
 	if (isset($_GET['pageNum'])) {
-	  $pageNum = $_GET['pageNum'];
+	  $pageNum = addslashes($_GET['pageNum']);
 	}
 	$startRow = $pageNum * $maxRows;
 	
@@ -23,7 +23,7 @@ else
 	$row = mysql_fetch_assoc($sql);
 	
 	if (isset($_GET['totalRows'])) {
-	  $totalRows_rs1 = $_GET['totalRows'];
+	  $totalRows_rs1 = addslashes($_GET['totalRows']);
 	} else {
 	  $all = mysql_query($query);
 	  $totalRows = mysql_num_rows($all);
@@ -82,68 +82,12 @@ else
         </tr>
 		   <?php } // Show if recordset not empty ?>
 <?php } while ($row = mysql_fetch_assoc($sql)); ?>
-       <!-- <tr>
-          <td>2</td>
-          <td>Ashley</td>
-          <td>Jacobs</td>
-          <td>ash11927</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Audrey</td>
-          <td>Ann</td>
-          <td>audann84</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>John</td>
-          <td>Robinson</td>
-          <td>jr5527</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Aaron</td>
-          <td>Butler</td>
-          <td>aaron_butler</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>Chris</td>
-          <td>Albert</td>
-          <td>cab79</td>
-          <td>
-              <a href="user.html"><i class="icon-pencil"></i></a>
-              <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
-          </td>
-        </tr>-->
       </tbody>
     </table>
 </div>
 <div class="pagination">
     <button class="btn btn-primary" onClick="GoToTianJia()"><i class="icon-plus"></i>添加</button>
     <ul style="float:right"><!--自己加的右漂移-->
-      <!--  <li><a href="#">Prev</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">Next</a></li>-->
         <li><a href="<?php printf("%s?pageNum=%d", $currentPage, 0); ?>">第一页</a></li>
         <li><a href="<?php printf("%s?pageNum=%d", $currentPage, max(0, $pageNum - 1)); ?>">上一页</a></li>
         <li><a href="<?php printf("%s?pageNum=%d", $currentPage, min($totalPages, $pageNum + 1)); ?>">下一页</a></li>

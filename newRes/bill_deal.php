@@ -2,8 +2,8 @@
 include('conn/conn.php');
 ?>
 <?php
-$staffid=$_GET["staffID"];
-$billID=$_GET["billID"];
+$staffid=addslashes($_GET["staffID"]);
+$billID=addslashes($_GET["billID"]);
 if($staffid!=""&&$billID!="")
 {
 	$sql=mysql_query("select * from staff where staffID=$staffid",$conn) or die(mysql_error());
